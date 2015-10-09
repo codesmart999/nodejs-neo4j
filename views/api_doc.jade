@@ -23,22 +23,22 @@ html
             nobr Error
         tr(style='height:20px;')
           td(style='text-align:center;min-width:50px', rowspan='6')
-            nobr User
+            nobr Customer
           td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
             nobr GET
           td(style='min-width:50px')
-            nobr /api/user
+            nobr /api/customer
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
-            nobr Array of Users
+            nobr Array of Customers
           td(style='min-width:50px')
             nobr {status: ERROR_CODE}
         tr(style='height:20px;')
           td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
             nobr GET
           td(style='min-width:50px')
-            nobr /api/user/{UserId}
+            nobr /api/customer/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
@@ -49,7 +49,7 @@ html
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
-            nobr /api/user/add
+            nobr /api/customer/add
           td(style='min-width:50px')
             nobr
               | fullName: FULLNAME,
@@ -67,7 +67,7 @@ html
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
-            nobr /api/user/edit/{UserId}
+            nobr /api/customer/edit/{UUID}
           td(style='min-width:50px')
             nobr
               | fullName: FULLNAME,
@@ -85,7 +85,7 @@ html
           td(style='text-align:center;background-color:#993300;min-width:50px')
             nobr DELETE
           td(style='min-width:50px')
-            nobr /api/user/{UserId}
+            nobr /api/customer/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
@@ -96,7 +96,7 @@ html
           td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
             nobr GET
           td(style='min-width:50px')
-            nobr /api/user/del/{UserId}
+            nobr /api/customer/del/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
