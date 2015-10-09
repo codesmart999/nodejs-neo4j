@@ -3,7 +3,7 @@ var uuid = require('node-uuid');
 var crypto = require('crypto');
 
 exports.all = function(req, res, cb){
-	var id = uuid.v1();
+//	var id = uuid.v1();
 	
 //	var digest = crypto.createHash('md5').update("123456789").digest("hex");
 //	
