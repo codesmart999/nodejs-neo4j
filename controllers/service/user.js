@@ -63,17 +63,5 @@ router.delete('/:id', function(req, res){
 	})
 })
 
-router.get('/del/:id', function(req, res){
-	users.del(req, res, function(err, node){
-		if (err){
-			console.log(err);
-			
-			res.json({status: err, message: node});
-		}else{
-			//node deleted
-			res.json({status: 0})
-		}
-	})
-})
 
 module.exports = router;
