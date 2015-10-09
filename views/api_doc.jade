@@ -27,7 +27,7 @@ html
           td(style='text-align:center;background-color:#CCCCFF;border-top:1px solid;border-top-color:#000000;min-width:50px')
             nobr GET
           td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
-            nobr /customer
+            nobr /api/customer
           td(style='min-width:50px')
             nobr  
           td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
@@ -38,7 +38,7 @@ html
           td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
             nobr GET
           td(style='min-width:50px')
-            nobr /customer/{UUID}
+            nobr /api/customer/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
@@ -49,7 +49,7 @@ html
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
-            nobr /customer/add
+            nobr /api/customer/add
           td(style='min-width:50px')
             nobr
               | fullName: STRING_VALUE,
@@ -67,7 +67,7 @@ html
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
-            nobr /customer/edit/{UUID}
+            nobr /api/customer/edit/{UUID}
           td(style='min-width:50px')
             nobr
               | fullName: STRING_VALUE,
@@ -85,7 +85,7 @@ html
           td(style='text-align:center;background-color:#993300;min-width:50px')
             nobr DELETE
           td(style='min-width:50px')
-            nobr /customer/{UUID}
+            nobr /api/customer/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
@@ -96,7 +96,7 @@ html
           td(style='text-align:center;background-color:#CCCCFF;border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
             nobr GET
           td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
-            nobr /customer/del/{UUID}
+            nobr /api/customer/del/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
@@ -109,7 +109,7 @@ html
           td(style='text-align:center;background-color:#CCCCFF;border-top:1px solid;border-top-color:#000000;min-width:50px')
             nobr GET
           td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
-            nobr /module
+            nobr /api/module
           td(style='min-width:50px')
             nobr  
           td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
@@ -120,7 +120,7 @@ html
           td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
             nobr GET
           td(style='min-width:50px')
-            nobr /module/{UUID}
+            nobr /api/module/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
@@ -131,7 +131,7 @@ html
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
-            nobr /module/add
+            nobr /api/module/add
           td(style='min-width:50px')
             nobr
               | name: STRING_VALUE,
@@ -147,7 +147,7 @@ html
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
-            nobr /module/edit/{UUID}
+            nobr /api/module/edit/{UUID}
           td(style='min-width:50px')
             nobr
               | name: STRING_VALUE,
@@ -163,7 +163,7 @@ html
           td(style='text-align:center;background-color:#993300;min-width:50px')
             nobr DELETE
           td(style='min-width:50px')
-            nobr /module/{UUID}
+            nobr /api/module/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
@@ -174,7 +174,7 @@ html
           td(style='text-align:center;background-color:#CCCCFF;border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
             nobr GET
           td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
-            nobr /module/del/{UUID}
+            nobr /api/module/del/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
@@ -187,7 +187,7 @@ html
           td(style='text-align:center;background-color:#CCCCFF;border-top:1px solid;border-top-color:#000000;min-width:50px')
             nobr GET
           td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
-            nobr /user
+            nobr /api/user
           td(style='min-width:50px')
             nobr  
           td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
@@ -198,7 +198,7 @@ html
           td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
             nobr GET
           td(style='min-width:50px')
-            nobr /user/{UUID}
+            nobr /api/user/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
@@ -209,7 +209,7 @@ html
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
-            nobr /user/add
+            nobr /api/user/add
           td(style='min-width:50px')
             nobr
               | userName: STRING_VALUE,
@@ -229,7 +229,7 @@ html
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
-            nobr /user/edit/{UUID}
+            nobr /api/user/edit/{UUID}
           td(style='min-width:50px')
             nobr
               | userName: STRING_VALUE,
@@ -249,7 +249,7 @@ html
           td(style='text-align:center;background-color:#993300;min-width:50px')
             nobr DELETE
           td(style='min-width:50px')
-            nobr /user/{UUID}
+            nobr /api/user/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
@@ -260,7 +260,7 @@ html
           td(style='text-align:center;background-color:#CCCCFF;border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
             nobr GET
           td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
-            nobr /user/del/{UUID}
+            nobr /api/user/del/{UUID}
           td(style='min-width:50px')
             nobr  
           td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
