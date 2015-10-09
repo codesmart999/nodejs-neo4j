@@ -2,16 +2,10 @@ var db = require('./db-neo4j');
 
 exports.all = function(req, res, cb){
 	console.log("Trying to get all Users");
-	db.insertNode({
-		fullName: "Tuguldur Sumiya",
-		address: "SBD 3rd, apt 41-53",
-		userName: "tuguldur",
-		password: "123456789"
-	}, 'User', cb);
-//	db.listAllLabels(function(err, node){
-//		console.log(node);
-//		db.readNodesWithLabel("User", cb);
-//	})
+	db.listAllLabels(function(err, node){
+		console.log(node);
+		db.readNodesWithLabel("User", cb);
+	})
 }
 
 exports.get = function(req, res, cb){
