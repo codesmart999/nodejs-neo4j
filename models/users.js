@@ -2,7 +2,14 @@ var db = require('./db-neo4j');
 
 exports.all = function(req, res, cb){
 	console.log("Trying to get all Users");
-	db.readNodesWithLabel("User", cb);
+	db.listAllLabels(function(err, node){
+		console.log("WWW:", err);
+		if (err)
+			return cb(err, node);
+		
+		//console.log(node);
+		//db.readNodesWithLabel("User", cb);
+	})
 }
 
 exports.get = function(req, res, cb){

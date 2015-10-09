@@ -6,7 +6,7 @@ router.get('/', function(req, res){
 	users.all(req, res, function(err, node){
 		if (err){
 			console.log(err);
-			res.json({status: err});
+			res.json({status: 401});
 		}else{
 			console.log(node);
 			res.json(node);
