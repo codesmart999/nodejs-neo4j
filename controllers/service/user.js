@@ -63,7 +63,7 @@ router.delete('/:id', function(req, res){
 	})
 })
 
-router.get('/del/:id', function(req, res){
+router.post('/del/:id', function(req, res){
 	users.del(req, res, function(err, node){
 		if (err){
 			console.log(err);
