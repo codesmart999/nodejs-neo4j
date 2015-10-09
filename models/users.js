@@ -7,8 +7,8 @@ exports.all = function(req, res, cb){
 		if (err)
 			return cb(err, node);
 		
-		//console.log(node);
-		//db.readNodesWithLabel("User", cb);
+		console.log(node);
+		db.readNodesWithLabel("User", cb);
 	})
 }
 
