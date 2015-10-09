@@ -1,14 +1,18 @@
 var db = require('./db-neo4j');
 var uuid = require('node-uuid');
+var crypto = require('crypto');
 
 exports.all = function(req, res, cb){
 	var id = uuid.v1();
+	
+//	var digest = crypto.createHash('md5').update("123456789").digest("hex");
+//	
 //	db.insertNode({
 //		customerID: id,
 //		fullName: req.body.fullName,
 //		address: req.body.address,
 //		userName: req.body.userName,
-//		password: req.body.password
+//		password: digest
 //	}, 'Customer', cb);
 	console.log("Trying to get all Customers");
 	db.listAllLabels(function(err, node){
@@ -28,13 +32,16 @@ exports.get = function(req, res, cb){
 
 exports.add = function(req, res, cb){
 	console.log("Trying to add Customer:", req.body)
+	
 	var _uuid = uuid.v1();
+	var digest = crypto.createHash('md5').update(req.body.password).digest("hex");
+	
 	db.insertNode({
 		customerID: _uuid,
 		fullName: req.body.fullName,
 		address: req.body.address,
 		userName: req.body.userName,
-		password: req.body.password
+		password: digest
 	}, 'Customer', cb);
 }
 
@@ -50,8 +57,10 @@ exports.edit = function(req, res, cb){
 		data.address = req.body.address;
 	if (req.body.userName)
 		data.userName = req.body.userName;
-	if (req.body.password)
-		data.password = req.body.password;
+	if (req.body.password){
+		var digest = crypto.createHash('md5').update(req.body.password).digest("hex");
+		data.password = digest;
+	}
 	
 	console.log("Trying to edit Customer:" + req.params.uuid, data);
 	db.updateNodesWithLabelsAndProperties('Customer', {customerID:req.params.uuid}, data, cb);
