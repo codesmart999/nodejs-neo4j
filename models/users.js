@@ -1,6 +1,7 @@
 var db = require('./db-neo4j');
 var uuid = require('node-uuid');
 var crypto = require('crypto');
+var async = require('async')
 
 exports.all = function(req, res, cb){
 	console.log("Trying to get all Users");
@@ -73,4 +74,39 @@ exports.del = function(req, res, cb){
 			return cb("401", "Failed in deleting User due to existing relationships");
 		}
 	});
+}
+
+/**
+ * Login API
+ */
+exports.login = function(req, res, cb){
+	console.log("Trying to login:", req.body);
+	
+	var digest = crypto.createHash('md5').update(req.body.password).digest("hex");
+	
+	db.readNodesWithLabelsAndProperties(
+			['User', 'Customer'],
+			{userName:req.body.userName, password:digest},
+			function(err, node){
+				if (err)
+					return cb(400, "Failed in Login");
+				if (node.length > 0){
+					return cb(0, node);
+				}
+				
+				db.readNodesWithLabelsAndProperties(
+						['User', 'Customer'],
+						{userName:req.body.userName},
+						function(err, node){
+							if (err)
+								return cb(400, "Failed in Login");
+							if (node.length > 0){
+								return cb(401, "Incorrect Password");
+							}else{
+								return cb(402, "Invalid Username");
+							}
+						}
+				);
+			}
+	);
 }

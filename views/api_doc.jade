@@ -267,4 +267,27 @@ html
             nobr {status:0}
           td(style='border-right:1px solid;border-bottom:1px solid;border-right-color:#000000;border-bottom-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:75.6px;')
+          td(style='text-align:center;min-width:50px')
+            nobr Login
+          td(style='text-align:center;background-color:#339966;min-width:50px')
+            nobr POST
+          td(style='min-width:50px')
+            nobr /api/login
+          td(style='min-width:50px')
+            nobr
+              | userName: STRING_VALUE,
+              br
+              | password: STRING_VALUE
+          td(style='min-width:50px')
+            nobr {status:0, node:USER_DATA}
+          td(style='border-right:1px solid;border-bottom:1px solid;border-right-color:#000000;border-bottom-color:#000000;min-width:50px')
+            nobr
+              | {status: ERROR_CODE, message: ERROR_MESSAGE}
+              br
+              | 400: General Error
+              br
+              | 401: Incorrect Password
+              br
+              | 402: Invalid Username
     hr
