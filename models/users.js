@@ -68,11 +68,7 @@ exports.del = function(req, res, cb){
 	db.deleteNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, function(err, node){
 		if (err)
 			return cb(err, "Failed in deleting User");
-		if (node === true){
-			return cb(err, node);
-		}else {
-			return cb("401", "Failed in deleting User due to existing relationships");
-		}
+		return cb(err, node);
 	});
 }
 

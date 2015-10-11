@@ -67,10 +67,10 @@ exports.del = function(req, res, cb){
 	db.deleteNodesWithLabelsAndProperties('Module', {moduleID:req.params.uuid}, function(err, node){
 		if (err)
 			return cb(err, "Failed in deleting Module");
-		if (node === true){
+		//if (node === true){
 			return cb(err, node);
-		}else {
-			return cb("401", "Failed in deleting Module due to existing relationships");
-		}
+		//}else {
+		//	return cb("401", "Failed in deleting Module due to existing relationships");
+		//}
 	});
 }
