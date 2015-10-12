@@ -81,7 +81,7 @@ exports.login = function(req, res, cb){
 	var digest = crypto.createHash('md5').update(req.body.password).digest("hex");
 	
 	db.readNodesWithLabelsAndProperties(
-			['User', 'Customer'],
+			[],
 			{userName:req.body.userName},
 			function(err, node){
 				if (err)
@@ -91,7 +91,7 @@ exports.login = function(req, res, cb){
 				}
 				
 				db.readNodesWithLabelsAndProperties(
-						['User', 'Customer'],
+						[],
 						{userName:req.body.userName},
 						function(err, node){
 							console.log("Result_err:", err);
