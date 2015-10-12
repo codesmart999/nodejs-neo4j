@@ -49,6 +49,7 @@ router.post('/add', function(req, res){
 			
 			//if succeeds, result will hold information of the relationship.
 			function(err, result){
+				console.log("Here!:", err);
 				if (err){
 					console.log(err);
 					
