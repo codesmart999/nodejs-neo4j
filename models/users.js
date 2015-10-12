@@ -68,8 +68,10 @@ exports.del = function(req, res, cb){
 	
 	console.log("Trying to delete User:", req.params.uuid);
 	db.deleteNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, function(err, node){
-		if (err)
+		if (err){
+			console.log("Failed in deleting User:", node);
 			return cb(err, "Failed in deleting User");
+		}
 		return cb(err, node);
 	});
 }
