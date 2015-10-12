@@ -82,7 +82,7 @@ exports.login = function(req, res, cb){
 	
 	db.readNodesWithLabelsAndProperties(
 			['User', 'Customer'],
-			{userName:req.body.userName, password:digest},
+			{userName:req.body.userName},
 			function(err, node){
 				if (err)
 					return cb(400, "Failed in Login");
@@ -90,7 +90,6 @@ exports.login = function(req, res, cb){
 					return cb(0, node);
 				}
 				
-				console.log(req.body.userName);
 				db.readNodesWithLabelsAndProperties(
 						['User', 'Customer'],
 						{userName:req.body.userName},
