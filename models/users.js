@@ -94,8 +94,8 @@ exports.login = function(req, res, cb){
 						['User', 'Customer'],
 						{userName:req.body.userName},
 						function(err, node){
-							console.log("Result:", err);
-							console.log("Result:", node);
+							console.log("Result_err:", err);
+							console.log("Result_node:", node);
 							if (err)
 								return cb(400, "Failed in Login");
 							if (node.length > 0){
