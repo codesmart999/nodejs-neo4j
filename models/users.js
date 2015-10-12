@@ -90,6 +90,7 @@ exports.login = function(req, res, cb){
 					return cb(0, node);
 				}
 				
+				console.log(req.body.userName);
 				db.readNodesWithLabelsAndProperties(
 						['User', 'Customer'],
 						{userName:req.body.userName},
