@@ -33,7 +33,9 @@ exports.add = function(req, res, cb){
 		fullName: req.body.fullName,
 		country: req.body.country,
 		customerID: req.body.customerID
-	}, 'User', cb);
+	}, 'User', function(err, node){
+		cb(err, node, 0);
+	});
 }
 
 exports.edit = function(req, res, cb){
@@ -70,6 +72,33 @@ exports.del = function(req, res, cb){
 			return cb(err, "Failed in deleting User");
 		return cb(err, node);
 	});
+}
+
+/**
+ * Add Relationship between a user and modules.
+ * 
+ * Parameters
+ * @req: req.body.module contains an array of module _ids
+ * @res:
+ * @node: Newly Inserted User
+ * @cb: callback function
+ */
+exports.addRelationship = function(req, res, user, module_index, cb){
+	console.log("Trying to create relationships FROM User:", user);
+	console.log("Trying to create relationships TO Module with _id:", req.body.module[module_index]);
+	
+	db.insertRelationship(
+			user._id,
+			req.body.module[module_index],
+			'User_Module',
+			{access: 'yes'},
+			function(err, relationship){
+				if (err)
+					return cb(err, "Failed to Create Relationship");
+				
+				cb(err, user, module_index + 1);
+			}
+	);
 }
 
 /**
