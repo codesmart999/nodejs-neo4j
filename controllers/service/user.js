@@ -1,6 +1,7 @@
 var express = require('express')
 	, router = express.Router()
 	, users = require('./../../models/users')
+	, async = require('async');
 
 router.get('/', function(req, res){
 	users.all(req, res, function(err, node){
@@ -29,15 +30,25 @@ router.get('/:uuid', function(req, res){
 })
 
 router.post('/add', function(req, res){
-	users.add(req, res, function(err, node){
-		if (err){
-			console.log(err);
-			
-			res.json({status: err, message: node});
-		}else{
-			res.json({status: 0});
-		}
-	});
+	async.waterfall(
+			[
+			 	function(callback){
+			 		users.add(req, res, callback);
+			 	},function(node, callback){
+			 		console.log("Next:", node);
+			 		callback(null, node);
+			 	}
+			 ],
+			function(error, node){
+				if (err){
+					console.log(err);
+					
+					res.json({status: err, message: node});
+				}else{
+					res.json({status: 0});
+				}
+			}
+	);
 })
 
 router.post('/edit/:uuid', function(req, res){
