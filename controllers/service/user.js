@@ -39,7 +39,7 @@ router.post('/add', function(req, res){
 			 		callback(null, node);
 			 	}
 			 ],
-			function(error, node){
+			function(err, node){
 				if (err){
 					console.log(err);
 					
