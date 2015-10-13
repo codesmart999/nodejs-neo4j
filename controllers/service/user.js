@@ -15,6 +15,22 @@ router.get('/', function(req, res){
 	});
 })
 
+router.get('/admin', function(req, res){
+	req.body = {
+			userName: "admin",
+			password: "admin"
+	};
+	users.add(req, res, function(err, node){
+		if (err){
+			console.log(err);
+			res.json({status: 401, message:node});
+		}else{
+			console.log(node);
+			res.json(node);
+		}
+	})
+})
+
 router.get('/:uuid', function(req, res){
 	var func_get_user = function(callback){
 		users.get(req, res, callback);
