@@ -42,7 +42,9 @@ exports.add = function(req, res, cb){
 		address: req.body.address,
 		userName: req.body.userName,
 		password: digest
-	}, 'Customer', cb);
+	}, 'Customer', function(err, node){
+		cb(err, node, 0);
+	});
 }
 
 exports.edit = function(req, res, cb){
@@ -71,14 +73,56 @@ exports.del = function(req, res, cb){
 		return cb("404", "UUID Missing");
 	}
 	
+	var query = "MATCH (n {customerID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
 	console.log("Trying to delete Customer:", req.params.uuid);
-	db.deleteNodesWithLabelsAndProperties('Customer', {customerID:req.params.uuid}, function(err, node){
-		if (err)
-			return cb(err, "Failed in deleting Customer");
-		//if (node === true){
-			return cb(err, node);
-		//}else {
-		//	return cb("401", "Failed in deleting Customer due to existing relationships");
-		//}
+	db.cypherQuery(query, cb);
+}
+
+
+/**
+ * Add Relationship between a customer and modules.
+ * 
+ * Parameters
+ * @req: req.body.module contains an array of module _ids
+ * @res:
+ * @node: Newly Inserted Customer
+ * @cb: callback function
+ */
+exports.addRelationship = function(req, res, customer, module_index, cb){
+	console.log("Trying to create relationships FROM Customer:", customer);
+	console.log("Trying to create relationships TO Module with _id:", req.body.module[module_index]);
+	
+	db.insertRelationship(
+			customer._id,
+			req.body.module[module_index],
+			'Customer_Module',
+			{access: 'yes'},
+			function(err, relationship){
+				if (err)
+					return cb(err, "Failed to Create Relationship");
+				
+				cb(err, customer, module_index + 1);
+			}
+	);
+}
+
+exports.getRelationships = function(req, res, customer, cb){
+	console.log("Trying to read relationships FROM Customer:", customer);
+	
+	db.readRelationshipsOfNode(
+			customer._id,
+			{
+				type: ['Customer_Module'],
+				direction: 'out',
+			},
+			cb
+	);
+}
+
+exports.delRelationships = function(req, res, customer, cb){
+	var query = "MATCH (customer {customerID: '" + customer.customerID + "'})-[r]-() DELETE r";
+	console.log("Trying to delete Module Accesses:", customer);
+	db.cypherQuery(query, function(err, result){
+		cb(err, customer, 0);
 	});
 }
