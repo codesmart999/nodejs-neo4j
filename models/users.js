@@ -145,8 +145,9 @@ exports.addRelationship = function(req, res, user, module_index, cb){
 exports.getRelationships = function(req, res, user, cb){
 	console.log("Trying to read relationships FROM User:", user);
 	
-	db.readOutgoingRelationshipsOfNode(
-			user._id,
-			cb
-	);
+//	db.readOutgoingRelationshipsOfNode(
+//			user._id,
+//			cb
+//	);
+	db.readRelationshipTypes(cb);
 }
