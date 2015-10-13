@@ -68,16 +68,14 @@ exports.del = function(req, res, cb){
 	
 	var query = "MATCH (n {userID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
 	console.log("Trying to delete User:", req.params.uuid);
-	db.cypherQuery(query, function(err, result){
-		if (err){
-			console.log("Failed in deleting User:", result);
-			return cb(err, "Failed in deleting User");
-		}
-		return cb(err, result);
-	});
-	db.deleteNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, function(err, node){
-		
-	});
+//	db.cypherQuery(query, function(err, result){
+//		if (err){
+//			console.log("Failed in deleting User:", result);
+//			return cb(err, "Failed in deleting User");
+//		}
+//		return cb(err, result);
+//	});
+	db.cypherQuery(query, cb);
 }
 
 /**
@@ -143,12 +141,9 @@ exports.addRelationship = function(req, res, user, module_index, cb){
 }
 
 exports.getRelationships = function(req, res, user, cb){
-	console.log("Trying to read relationships FROM User:", user);
+	var query = "MATCH (user {userID: '" + user.userID + "'})-[r]-(module) RETURN module";
 	
-	db.readRelationshipsOfNode(
-			user._id,
-			{
-			},
-			cb
-	);
+	console.log("Trying to read relationships FROM User:", user);
+	console.log(query);
+	db.cypherQuery(query, cb);
 }
