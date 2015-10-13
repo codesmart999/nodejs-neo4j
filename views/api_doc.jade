@@ -1,10 +1,9 @@
 html
   head
-    title Excel To HTML using codebeautify.org
+    title API DOCUMENTATION
   body
     b
-      u Batu
-      |  :- API DOCUMENTATION
+      | API DOCUMENTATION
     hr
     table(cellspacing='0', border='1')
       tbody
@@ -21,7 +20,7 @@ html
             nobr Return
           td(style='font-family:Calibri;text-align:center;font-size:11px;color:#000000;font-weight:bold;min-width:50px')
             nobr Error
-        tr(style='height:21.066666666667px;')
+        tr(style='height:200.93333333333px;')
           td(style='text-align:center;border-left:1px solid;border-top:1px solid;border-bottom:1px solid;border-left-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px', rowspan='6')
             nobr Customer
           td(style='text-align:center;background-color:#CCCCFF;border-top:1px solid;border-top-color:#000000;min-width:50px')
@@ -31,10 +30,30 @@ html
           td(style='min-width:50px')
             nobr  
           td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
-            nobr Array of Customers
+            nobr
+              | Array of Customers
+              br
+              br
+              | Ex:
+              br
+              | [{
+              br
+              | customerID: STRING_VALUE,
+              br
+              | fullName: STRING_VALUE,
+              br
+              | address: STRING_VALUE,
+              br
+              | userName: STRING_VALUE
+              br
+              | },{
+              br
+              | },...
+              br
+              | ]
           td(style='border-right:1px solid;border-top:1px solid;border-right-color:#000000;border-top-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE}
-        tr(style='height:21.066666666667px;')
+        tr(style='height:200.93333333333px;')
           td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
             nobr GET
           td(style='min-width:50px')
@@ -42,10 +61,30 @@ html
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
-            nobr {status:0, node: USER_DATA}
+            nobr
+              | {status:0, node: CUSTOMER_DATA}
+              br
+              br
+              | Ex:
+              br
+              | {status:0,
+              br
+              | node: {
+              br
+              | customerID: STRING_VALUE,
+              br
+              | fullName: STRING_VALUE,
+              br
+              | address: STRING_VALUE,
+              br
+              | userName: STRING_VALUE,
+              br
+              | Module: []
+              br
+              | }}
           td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
-        tr(style='height:75.6px;')
+        tr(style='height:93.466666666667px;')
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
@@ -58,12 +97,14 @@ html
               br
               | userName: STRING_VALUE,
               br
-              | password: STRING_VALUE
+              | password: STRING_VALUE,
+              br
+              | module: []
           td(style='min-width:50px')
             nobr {status:0}
           td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
-        tr(style='height:75.6px;')
+        tr(style='height:93.466666666667px;')
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
@@ -72,11 +113,13 @@ html
             nobr
               | fullName: STRING_VALUE,
               br
-              | address: STRING_VALUE,
+              | Address: STRING_VALUE,
               br
               | userName: STRING_VALUE,
               br
-              | password: STRING_VALUE
+              | password: STRING_VALUE,
+              br
+              | module: []
           td(style='min-width:50px')
             nobr {status:0}
           td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
@@ -103,7 +146,7 @@ html
             nobr {status:0}
           td(style='border-right:1px solid;border-bottom:1px solid;border-right-color:#000000;border-bottom-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
-        tr(style='height:21.066666666667px;')
+        tr(style='height:200.93333333333px;')
           td(style='text-align:center;border-left:1px solid;border-top:1px solid;border-bottom:1px solid;border-left-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px', rowspan='6')
             nobr Module
           td(style='text-align:center;background-color:#CCCCFF;border-top:1px solid;border-top-color:#000000;min-width:50px')
@@ -113,10 +156,30 @@ html
           td(style='min-width:50px')
             nobr  
           td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
-            nobr Array of Modules
+            nobr
+              | Array of Modules
+              br
+              br
+              | Ex:
+              br
+              | [{
+              br
+              | moduleID: STRING_VALUE,
+              br
+              | name: STRING_VALUE,
+              br
+              | link: STRING_VALUE,
+              br
+              | icon: STRING_VALUE,
+              br
+              | },{
+              br
+              | },...
+              br
+              | ]
           td(style='border-right:1px solid;border-top:1px solid;border-right-color:#000000;border-top-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE}
-        tr(style='height:21.066666666667px;')
+        tr(style='height:183.06666666667px;')
           td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
             nobr GET
           td(style='min-width:50px')
@@ -124,7 +187,25 @@ html
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
-            nobr {status:0, node: MODULE_DATA}
+            nobr
+              | {status:0, node: MODULE_DATA}
+              br
+              br
+              | Ex:
+              br
+              | {status:0,
+              br
+              | node: {
+              br
+              | moduleID: STRING_VALUE,
+              br
+              | name: STRING_VALUE,
+              br
+              | link: STRING_VALUE,
+              br
+              | icon: STRING_VALUE,
+              br
+              | }}
           td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
         tr(style='height:57.666666666667px;')
@@ -181,7 +262,7 @@ html
             nobr {status:0}
           td(style='border-right:1px solid;border-bottom:1px solid;border-right-color:#000000;border-bottom-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
-        tr(style='height:21.066666666667px;')
+        tr(style='height:218.86666666667px;')
           td(style='text-align:center;border-left:1px solid;border-top:1px solid;border-bottom:1px solid;border-left-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px', rowspan='6')
             nobr User
           td(style='text-align:center;background-color:#CCCCFF;border-top:1px solid;border-top-color:#000000;min-width:50px')
@@ -191,10 +272,32 @@ html
           td(style='min-width:50px')
             nobr  
           td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
-            nobr Array of Users
+            nobr
+              | Array of Users
+              br
+              br
+              | Ex:
+              br
+              | [{
+              br
+              | userID: STRING_VALUE,
+              br
+              | userName: STRING_VALUE
+              br
+              | fullName: STRING_VALUE,
+              br
+              | country: STRING_VALUE,
+              br
+              | CustomerID: STRING_VALUE,
+              br
+              | },{
+              br
+              | },...
+              br
+              | ]
           td(style='border-right:1px solid;border-top:1px solid;border-right-color:#000000;border-top-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE}
-        tr(style='height:21.066666666667px;')
+        tr(style='height:218.86666666667px;')
           td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
             nobr GET
           td(style='min-width:50px')
@@ -202,10 +305,32 @@ html
           td(style='min-width:50px')
             nobr  
           td(style='min-width:50px')
-            nobr {status:0, node: USER_DATA}
+            nobr
+              | {status:0, node: USER_DATA}
+              br
+              br
+              | Ex:
+              br
+              | {status:0,
+              br
+              | node: {
+              br
+              | userID: STRING_VALUE,
+              br
+              | userName: STRING_VALUE,
+              br
+              | fullName: STRING_VALUE,
+              br
+              | country: STRING_VALUE,
+              br
+              | customerID: STRING_VALUE,
+              br
+              | Module: []
+              br
+              | }}
           td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
-        tr(style='height:93.466666666667px;')
+        tr(style='height:111.4px;')
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
@@ -220,12 +345,14 @@ html
               br
               | country: STRING_VALUE,
               br
-              | customerID: STRING_VALUE
+              | customerID: STRING_VALUE,
+              br
+              | module: []
           td(style='min-width:50px')
             nobr {status:0}
           td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
             nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
-        tr(style='height:93.466666666667px;')
+        tr(style='height:111.4px;')
           td(style='text-align:center;background-color:#339966;min-width:50px')
             nobr POST
           td(style='min-width:50px')
@@ -240,7 +367,9 @@ html
               br
               | country: STRING_VALUE,
               br
-              | customerID: STRING_VALUE
+              | customerID: STRING_VALUE,
+              br
+              | module: []
           td(style='min-width:50px')
             nobr {status:0}
           td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
