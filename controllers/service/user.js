@@ -86,15 +86,40 @@ router.post('/add', function(req, res){
 })
 
 router.post('/edit/:uuid', function(req, res){
-	users.edit(req, res, function(err, node){
-		if (err){
-			console.log(err);
+	var func_edit_user = function(callback){
+		users.edit(req, res, callback);
+	}
+	var func_del_access_modules = function(user, callback){
+		//users.delRelationships(req, res, )
+		console.log("Hello:", user);
+		callback("404", "404");
+	}
+	var func_add_relationship = function(user, module_index, callback){
+ 		users.addRelationship(req, res, user, module_index, callback);
+ 	}
+	
+	var call_stack = [func_edit_user, func_del_access_modules];
+ 	if (req.body.module && req.body.module.length > 0){
+ 		var module_length = req.body.module.length;
+ 		for (var i=0; i<module_length; i++)
+ 			call_stack[i + 2] = func_add_relationship;
+ 	}
+ 	
+ 	async.waterfall(
+			call_stack,
 			
-			res.json({status: err, message: node});
-		}else{
-			res.json({status: 0});
-		}
-	});
+			//if succeeds, result will hold information of the relationship.
+			function(err, result){
+				if (err){
+					console.log(err);
+					
+					res.json({status: err, message: result});
+				}else{
+					res.json({status: 0});
+				}
+				res.end();
+			}
+	);
 })
 
 router.delete('/:uuid', function(req, res){
