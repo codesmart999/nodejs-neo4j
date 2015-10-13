@@ -19,9 +19,13 @@ router.get('/:uuid', function(req, res){
 	var func_get_user = function(callback){
 		users.get(req, res, callback);
 	};
-	var func_get_module_accesses = function(user, callback){
-		res.user = user;
-		users.getRelationships(req, res, user, callback);
+	var func_get_module_accesses = function(node, callback){
+		if (node.length > 0){
+			res.user = node[0];
+			users.getRelationships(req, res, node[0], callback);
+		}else{
+			callback(404, "Not found");
+		}
 	};
 	
 	async.waterfall(
@@ -34,13 +38,15 @@ router.get('/:uuid', function(req, res){
 					console.log(err);
 					
 					res.json({status: err, message: result});
+				}else{
+					var user = res.user;
+					user.module = [];
+					
+					for (var i=0; i<result.length; i++)
+						user.module[i] = result[i]._id;
+					
+					res.json({status: 0, node: user});
 				}
-//				else if (node.length > 0){
-//					res.json({status: 0, node: node[0]});
-//				}else{
-//					res.json({status: 404, message: "Not found"});
-//				}
-				console.log(result);
 				res.end();
 			}
 	);
