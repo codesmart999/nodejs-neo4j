@@ -16,17 +16,33 @@ router.get('/', function(req, res){
 })
 
 router.get('/:uuid', function(req, res){
-	users.get(req, res, function(err, node){
-		if (err){
-			console.log(err);
+	var func_get_user = function(callback){
+		users.get(req, res, callback);
+	};
+	var func_get_module_accesses = function(user, callback){
+		res.user = user;
+		callback(null, "success");
+	};
+	
+	async.waterfall(
+			[func_get_user,
+			 func_get_module_accesses],
 			
-			res.json({status: err, message: node});
-		}else if (node.length > 0){
-			res.json({status: 0, node: node[0]});
-		}else{
-			res.json({status: 404, node: "Not found"});
-		}
-	});
+			//if succeeds, result will hold information of the relationship.
+			function(err, result){
+				if (err){
+					console.log(err);
+					
+					res.json({status: err, message: node});
+				}
+//				else if (node.length > 0){
+//					res.json({status: 0, node: node[0]});
+//				}else{
+//					res.json({status: 404, message: "Not found"});
+//				}
+				res.end();
+			}
+	);
 })
 
 router.post('/add', function(req, res){
