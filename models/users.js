@@ -148,7 +148,7 @@ exports.getRelationships = function(req, res, user, cb){
 	db.readRelationshipsOfNode(
 			user._id,
 			{
-				type: 'User_Module'
+				type: ['User_Module']
 			},
 			cb
 	);
