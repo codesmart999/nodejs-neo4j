@@ -39,6 +39,7 @@ router.get('/:uuid', function(req, res){
 					
 					res.json({status: err, message: result});
 				}else{
+					console.log("Relationships:", result);
 					var user = res.user;
 					user.module = [];
 					
