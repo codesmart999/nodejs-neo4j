@@ -78,6 +78,16 @@ exports.del = function(req, res, cb){
 	db.cypherQuery(query, cb);
 }
 
+exports.delRelationships = function(req, res, cb){
+	if (!req.params.uuid){
+		return cb("404", "UUID Missing");
+	}
+	
+	var query = "MATCH (user {userID: '" + req.params.uuid + "'})-[r]-() DELETE r";
+	console.log("Trying to delete Module Accesses:", req.params.uuid);
+	db.cypherQuery(query, cb);
+}
+
 /**
  * Login API
  */

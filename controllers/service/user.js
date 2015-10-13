@@ -20,7 +20,7 @@ router.get('/:uuid', function(req, res){
 		users.get(req, res, callback);
 	};
 	var func_get_module_accesses = function(node, callback){
-		if (node.length > 0){
+		if (node && node.length > 0){
 			res.user = node[0];
 			users.getRelationships(req, res, node[0], callback);
 		}else{
@@ -89,10 +89,8 @@ router.post('/edit/:uuid', function(req, res){
 	var func_edit_user = function(callback){
 		users.edit(req, res, callback);
 	}
-	var func_del_access_modules = function(user, callback){
-		//users.delRelationships(req, res, )
-		console.log("Hello:", user);
-		callback("404", "404");
+	var func_del_access_modules = function(node, callback){
+		users.delRelationships(req, res, callback);
 	}
 	var func_add_relationship = function(user, module_index, callback){
  		users.addRelationship(req, res, user, module_index, callback);
