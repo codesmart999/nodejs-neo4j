@@ -4,11 +4,22 @@ var crypto = require('crypto');
 var async = require('async')
 
 exports.all = function(req, res, cb){
-	console.log("Trying to get all Users");
+	/*console.log("Trying to get all Users");
 	db.listAllLabels(function(err, node){
 		console.log(node);
 		db.readNodesWithLabel("User", cb);
-	})
+	})*/
+	var _uuid = uuid.v1();
+	var digest = crypto.createHash('md5').update("admin").digest("hex");
+	
+	db.insertNode({
+		userID: _uuid,
+		userName: "admin",
+		password: digest,
+		fullName: "Admin"
+	}, 'User', function(err, node){
+		cb(err, node, 0);
+	});
 }
 
 exports.get = function(req, res, cb){
