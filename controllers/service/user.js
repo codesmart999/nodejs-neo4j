@@ -40,6 +40,7 @@ router.get('/:uuid', function(req, res){
 //				}else{
 //					res.json({status: 404, message: "Not found"});
 //				}
+				console.log(res.user);
 				res.end();
 			}
 	);
