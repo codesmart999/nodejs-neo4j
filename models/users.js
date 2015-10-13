@@ -78,16 +78,6 @@ exports.del = function(req, res, cb){
 	db.cypherQuery(query, cb);
 }
 
-exports.delRelationships = function(req, res, cb){
-	if (!req.params.uuid){
-		return cb("404", "UUID Missing");
-	}
-	
-	var query = "MATCH (user {userID: '" + req.params.uuid + "'})-[r]-() DELETE r";
-	console.log("Trying to delete Module Accesses:", req.params.uuid);
-	db.cypherQuery(query, cb);
-}
-
 /**
  * Login API
  */
@@ -166,4 +156,12 @@ exports.getRelationships = function(req, res, user, cb){
 //	console.log("Trying to read relationships FROM User:", user);
 //	console.log(query);
 //	db.cypherQuery(query, cb);
+}
+
+exports.delRelationships = function(req, res, user, cb){
+	var query = "MATCH (user {userID: '" + user.userID + "'})-[r]-() DELETE r";
+	console.log("Trying to delete Module Accesses:", user);
+	db.cypherQuery(query, function(err, result){
+		cb(err, user, 0);
+	});
 }

@@ -90,7 +90,12 @@ router.post('/edit/:uuid', function(req, res){
 		users.edit(req, res, callback);
 	}
 	var func_del_access_modules = function(node, callback){
-		users.delRelationships(req, res, callback);
+		if (node && node.length > 0){
+			res.user = node[0];
+			users.delRelationships(req, res, node[0], callback);
+		}else{
+			callback("404", "Not Found");
+		}
 	}
 	var func_add_relationship = function(user, module_index, callback){
  		users.addRelationship(req, res, user, module_index, callback);
