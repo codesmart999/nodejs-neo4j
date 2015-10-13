@@ -66,13 +66,17 @@ exports.del = function(req, res, cb){
 		return cb("404", "UUID Missing");
 	}
 	
+	var query = "MATCH (n {userID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
 	console.log("Trying to delete User:", req.params.uuid);
-	db.deleteNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, function(err, node){
+	db.cypherQuery(query, function(err, result){
 		if (err){
-			console.log("Failed in deleting User:", node);
+			console.log("Failed in deleting User:", result);
 			return cb(err, "Failed in deleting User");
 		}
-		return cb(err, node);
+		return cb(err, result);
+	});
+	db.deleteNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, function(err, node){
+		
 	});
 }
 
