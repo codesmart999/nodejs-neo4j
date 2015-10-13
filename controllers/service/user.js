@@ -21,7 +21,7 @@ router.get('/:uuid', function(req, res){
 	};
 	var func_get_module_accesses = function(user, callback){
 		res.user = user;
-		callback(null, "success");
+		users.getRelationships(req, res, user, callback);
 	};
 	
 	async.waterfall(
@@ -33,14 +33,14 @@ router.get('/:uuid', function(req, res){
 				if (err){
 					console.log(err);
 					
-					res.json({status: err, message: node});
+					res.json({status: err, message: result});
 				}
 //				else if (node.length > 0){
 //					res.json({status: 0, node: node[0]});
 //				}else{
 //					res.json({status: 404, message: "Not found"});
 //				}
-				console.log(res.user);
+				console.log(result);
 				res.end();
 			}
 	);

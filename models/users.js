@@ -81,33 +81,6 @@ exports.del = function(req, res, cb){
 }
 
 /**
- * Add Relationship between a user and modules.
- * 
- * Parameters
- * @req: req.body.module contains an array of module _ids
- * @res:
- * @node: Newly Inserted User
- * @cb: callback function
- */
-exports.addRelationship = function(req, res, user, module_index, cb){
-	console.log("Trying to create relationships FROM User:", user);
-	console.log("Trying to create relationships TO Module with _id:", req.body.module[module_index]);
-	
-	db.insertRelationship(
-			user._id,
-			req.body.module[module_index],
-			'User_Module',
-			{access: 'yes'},
-			function(err, relationship){
-				if (err)
-					return cb(err, "Failed to Create Relationship");
-				
-				cb(err, user, module_index + 1);
-			}
-	);
-}
-
-/**
  * Login API
  */
 exports.login = function(req, res, cb){
@@ -139,5 +112,44 @@ exports.login = function(req, res, cb){
 						}
 				);
 			}
+	);
+}
+
+/**
+ * Add Relationship between a user and modules.
+ * 
+ * Parameters
+ * @req: req.body.module contains an array of module _ids
+ * @res:
+ * @node: Newly Inserted User
+ * @cb: callback function
+ */
+exports.addRelationship = function(req, res, user, module_index, cb){
+	console.log("Trying to create relationships FROM User:", user);
+	console.log("Trying to create relationships TO Module with _id:", req.body.module[module_index]);
+	
+	db.insertRelationship(
+			user._id,
+			req.body.module[module_index],
+			'User_Module',
+			{access: 'yes'},
+			function(err, relationship){
+				if (err)
+					return cb(err, "Failed to Create Relationship");
+				
+				cb(err, user, module_index + 1);
+			}
+	);
+}
+
+exports.getRelationships = function(req, res, user, cb){
+	console.log("Trying to read relationships FROM User:", user);
+	
+	db.readRelationshipOfNode(
+			user._id,
+			{
+				type: 'User_Module'
+			},
+			cb
 	);
 }
