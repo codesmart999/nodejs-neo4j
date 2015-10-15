@@ -19,7 +19,7 @@ router.post('/', function(req, res){
 						res.json({status: err, message: result});
 					}else{
 						console.log("Relationships:", result);
-						var user = res.user;
+						var user = node[0];
 						user.module = [];
 						
 						for (var i=0; i<result.length; i++)
