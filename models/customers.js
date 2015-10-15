@@ -44,7 +44,10 @@ exports.add = function(req, res, cb){
 		company: req.body.company,
 		password: digest
 	}, 'Customer', function(err, node){
-		cb(err, "Company already registered", 0);
+		if (err)
+			cb(err, "Company already registered", 0);
+		else
+			cb(err, node, 0);
 	});
 }
 

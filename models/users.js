@@ -34,7 +34,10 @@ exports.add = function(req, res, cb){
 		country: req.body.country,
 		customerID: req.body.customerID
 	}, 'User', function(err, node){
-		cb(err, "Username already exists", 0);
+		if (err)
+			cb(err, "Username already exists", 0);
+		else
+			cb(err, node, 0);
 	});
 }
 
