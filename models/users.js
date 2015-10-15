@@ -34,6 +34,8 @@ exports.add = function(req, res, cb){
 		country: req.body.country,
 		customerID: req.body.customerID
 	}, 'User', function(err, node){
+		console.log(err);
+		console.log(node);
 		cb(err, node, 0);
 	});
 }
