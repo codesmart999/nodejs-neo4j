@@ -41,9 +41,10 @@ exports.add = function(req, res, cb){
 		fullName: req.body.fullName,
 		address: req.body.address,
 		userName: req.body.userName,
+		company: req.body.company,
 		password: digest
 	}, 'Customer', function(err, node){
-		cb(err, node, 0);
+		cb(err, "Company already registered", 0);
 	});
 }
 
@@ -63,6 +64,8 @@ exports.edit = function(req, res, cb){
 		var digest = crypto.createHash('md5').update(req.body.password).digest("hex");
 		data.password = digest;
 	}
+	if (req.body.company)
+		data.company = req.body.company;
 	
 	console.log("Trying to edit Customer:" + req.params.uuid, data);
 	db.updateNodesWithLabelsAndProperties('Customer', {customerID:req.params.uuid}, data, cb);
