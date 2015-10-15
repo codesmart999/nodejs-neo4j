@@ -33,7 +33,7 @@ router.post('/add', function(req, res){
 		if (err){
 			console.log(err);
 			
-			res.json({status: err, message: node});
+			res.json({status: err, message: "Module Name already exists!"});
 		}else{
 			res.json({status: 0});
 		}
