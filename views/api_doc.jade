@@ -1,0 +1,422 @@
+html
+  head
+    title API DOCUMENTATION
+  body
+    b
+      | API DOCUMENTATION
+    hr
+    table(cellspacing='0', border='1')
+      tbody
+        tr(style='height:20px;')
+          td(style='font-family:Calibri;text-align:center;font-size:11px;color:#000000;font-weight:bold;min-width:50px')
+            nobr Category
+          td(style='font-family:Calibri;text-align:center;font-size:11px;color:#000000;font-weight:bold;min-width:50px')
+            nobr HTTP Request Type
+          td(style='font-family:Calibri;text-align:center;font-size:11px;color:#000000;font-weight:bold;min-width:50px')
+            nobr URL
+          td(style='font-family:Calibri;text-align:center;font-size:11px;color:#000000;font-weight:bold;min-width:50px')
+            nobr Requirements
+          td(style='font-family:Calibri;text-align:center;font-size:11px;color:#000000;font-weight:bold;min-width:50px')
+            nobr Return
+          td(style='font-family:Calibri;text-align:center;font-size:11px;color:#000000;font-weight:bold;min-width:50px')
+            nobr Error
+        tr(style='height:200.93333333333px;')
+          td(style='text-align:center;border-left:1px solid;border-top:1px solid;border-bottom:1px solid;border-left-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px', rowspan='6')
+            nobr Customer
+          td(style='text-align:center;background-color:#CCCCFF;border-top:1px solid;border-top-color:#000000;min-width:50px')
+            nobr GET
+          td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
+            nobr /api/customer
+          td(style='min-width:50px')
+            nobr  
+          td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
+            nobr
+              | Array of Customers
+              br
+              br
+              | Ex:
+              br
+              | [{
+              br
+              | customerID: STRING_VALUE,
+              br
+              | fullName: STRING_VALUE,
+              br
+              | address: STRING_VALUE,
+              br
+              | userName: STRING_VALUE
+              br
+              | },{
+              br
+              | },...
+              br
+              | ]
+          td(style='border-right:1px solid;border-top:1px solid;border-right-color:#000000;border-top-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE}
+        tr(style='height:200.93333333333px;')
+          td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
+            nobr GET
+          td(style='min-width:50px')
+            nobr /api/customer/{UUID}
+          td(style='min-width:50px')
+            nobr  
+          td(style='min-width:50px')
+            nobr
+              | {status:0, node: CUSTOMER_DATA}
+              br
+              br
+              | Ex:
+              br
+              | {status:0,
+              br
+              | node: {
+              br
+              | customerID: STRING_VALUE,
+              br
+              | fullName: STRING_VALUE,
+              br
+              | address: STRING_VALUE,
+              br
+              | userName: STRING_VALUE,
+              br
+              | Module: []
+              br
+              | }}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:93.466666666667px;')
+          td(style='text-align:center;background-color:#339966;min-width:50px')
+            nobr POST
+          td(style='min-width:50px')
+            nobr /api/customer/add
+          td(style='min-width:50px')
+            nobr
+              | fullName: STRING_VALUE,
+              br
+              | address: STRING_VALUE,
+              br
+              | userName: STRING_VALUE,
+              br
+              | password: STRING_VALUE,
+              br
+              | module: []
+          td(style='min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:93.466666666667px;')
+          td(style='text-align:center;background-color:#339966;min-width:50px')
+            nobr POST
+          td(style='min-width:50px')
+            nobr /api/customer/edit/{UUID}
+          td(style='min-width:50px')
+            nobr
+              | fullName: STRING_VALUE,
+              br
+              | Address: STRING_VALUE,
+              br
+              | userName: STRING_VALUE,
+              br
+              | password: STRING_VALUE,
+              br
+              | module: []
+          td(style='min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:21.066666666667px;')
+          td(style='text-align:center;background-color:#993300;min-width:50px')
+            nobr DELETE
+          td(style='min-width:50px')
+            nobr /api/customer/{UUID}
+          td(style='min-width:50px')
+            nobr  
+          td(style='min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:21.066666666667px;')
+          td(style='text-align:center;background-color:#CCCCFF;border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
+            nobr GET
+          td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
+            nobr /api/customer/del/{UUID}
+          td(style='min-width:50px')
+            nobr  
+          td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-bottom:1px solid;border-right-color:#000000;border-bottom-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:200.93333333333px;')
+          td(style='text-align:center;border-left:1px solid;border-top:1px solid;border-bottom:1px solid;border-left-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px', rowspan='6')
+            nobr Module
+          td(style='text-align:center;background-color:#CCCCFF;border-top:1px solid;border-top-color:#000000;min-width:50px')
+            nobr GET
+          td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
+            nobr /api/module
+          td(style='min-width:50px')
+            nobr  
+          td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
+            nobr
+              | Array of Modules
+              br
+              br
+              | Ex:
+              br
+              | [{
+              br
+              | moduleID: STRING_VALUE,
+              br
+              | name: STRING_VALUE,
+              br
+              | link: STRING_VALUE,
+              br
+              | icon: STRING_VALUE,
+              br
+              | },{
+              br
+              | },...
+              br
+              | ]
+          td(style='border-right:1px solid;border-top:1px solid;border-right-color:#000000;border-top-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE}
+        tr(style='height:183.06666666667px;')
+          td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
+            nobr GET
+          td(style='min-width:50px')
+            nobr /api/module/{UUID}
+          td(style='min-width:50px')
+            nobr  
+          td(style='min-width:50px')
+            nobr
+              | {status:0, node: MODULE_DATA}
+              br
+              br
+              | Ex:
+              br
+              | {status:0,
+              br
+              | node: {
+              br
+              | moduleID: STRING_VALUE,
+              br
+              | name: STRING_VALUE,
+              br
+              | link: STRING_VALUE,
+              br
+              | icon: STRING_VALUE,
+              br
+              | }}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:57.666666666667px;')
+          td(style='text-align:center;background-color:#339966;min-width:50px')
+            nobr POST
+          td(style='min-width:50px')
+            nobr /api/module/add
+          td(style='min-width:50px')
+            nobr
+              | name: STRING_VALUE,
+              br
+              | link: STRING_VALUE,
+              br
+              | icon: STRING_VALUE
+          td(style='min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:57.666666666667px;')
+          td(style='text-align:center;background-color:#339966;min-width:50px')
+            nobr POST
+          td(style='min-width:50px')
+            nobr /api/module/edit/{UUID}
+          td(style='min-width:50px')
+            nobr
+              | name: STRING_VALUE,
+              br
+              | link: STRING_VALUE,
+              br
+              | icon: STRING_VALUE
+          td(style='min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:21.066666666667px;')
+          td(style='text-align:center;background-color:#993300;min-width:50px')
+            nobr DELETE
+          td(style='min-width:50px')
+            nobr /api/module/{UUID}
+          td(style='min-width:50px')
+            nobr  
+          td(style='min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:21.066666666667px;')
+          td(style='text-align:center;background-color:#CCCCFF;border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
+            nobr GET
+          td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
+            nobr /api/module/del/{UUID}
+          td(style='min-width:50px')
+            nobr  
+          td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-bottom:1px solid;border-right-color:#000000;border-bottom-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:218.86666666667px;')
+          td(style='text-align:center;border-left:1px solid;border-top:1px solid;border-bottom:1px solid;border-left-color:#000000;border-top-color:#000000;border-bottom-color:#000000;min-width:50px', rowspan='6')
+            nobr User
+          td(style='text-align:center;background-color:#CCCCFF;border-top:1px solid;border-top-color:#000000;min-width:50px')
+            nobr GET
+          td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
+            nobr /api/user
+          td(style='min-width:50px')
+            nobr  
+          td(style='border-top:1px solid;border-top-color:#000000;min-width:50px')
+            nobr
+              | Array of Users
+              br
+              br
+              | Ex:
+              br
+              | [{
+              br
+              | userID: STRING_VALUE,
+              br
+              | userName: STRING_VALUE
+              br
+              | fullName: STRING_VALUE,
+              br
+              | country: STRING_VALUE,
+              br
+              | CustomerID: STRING_VALUE,
+              br
+              | },{
+              br
+              | },...
+              br
+              | ]
+          td(style='border-right:1px solid;border-top:1px solid;border-right-color:#000000;border-top-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE}
+        tr(style='height:218.86666666667px;')
+          td(style='text-align:center;background-color:#CCCCFF;min-width:50px')
+            nobr GET
+          td(style='min-width:50px')
+            nobr /api/user/{UUID}
+          td(style='min-width:50px')
+            nobr  
+          td(style='min-width:50px')
+            nobr
+              | {status:0, node: USER_DATA}
+              br
+              br
+              | Ex:
+              br
+              | {status:0,
+              br
+              | node: {
+              br
+              | userID: STRING_VALUE,
+              br
+              | userName: STRING_VALUE,
+              br
+              | fullName: STRING_VALUE,
+              br
+              | country: STRING_VALUE,
+              br
+              | customerID: STRING_VALUE,
+              br
+              | Module: []
+              br
+              | }}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:111.4px;')
+          td(style='text-align:center;background-color:#339966;min-width:50px')
+            nobr POST
+          td(style='min-width:50px')
+            nobr /api/user/add
+          td(style='min-width:50px')
+            nobr
+              | userName: STRING_VALUE,
+              br
+              | password: STRING_VALUE
+              br
+              | fullName: STRING_VALUE,
+              br
+              | country: STRING_VALUE,
+              br
+              | customerID: STRING_VALUE,
+              br
+              | module: []
+          td(style='min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:111.4px;')
+          td(style='text-align:center;background-color:#339966;min-width:50px')
+            nobr POST
+          td(style='min-width:50px')
+            nobr /api/user/edit/{UUID}
+          td(style='min-width:50px')
+            nobr
+              | userName: STRING_VALUE,
+              br
+              | password: STRING_VALUE
+              br
+              | fullName: STRING_VALUE,
+              br
+              | country: STRING_VALUE,
+              br
+              | customerID: STRING_VALUE,
+              br
+              | module: []
+          td(style='min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:21.066666666667px;')
+          td(style='text-align:center;background-color:#993300;min-width:50px')
+            nobr DELETE
+          td(style='min-width:50px')
+            nobr /api/user/{UUID}
+          td(style='min-width:50px')
+            nobr  
+          td(style='min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-right-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:21.066666666667px;')
+          td(style='text-align:center;background-color:#CCCCFF;border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
+            nobr GET
+          td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
+            nobr /api/user/del/{UUID}
+          td(style='min-width:50px')
+            nobr  
+          td(style='border-bottom:1px solid;border-bottom-color:#000000;min-width:50px')
+            nobr {status:0}
+          td(style='border-right:1px solid;border-bottom:1px solid;border-right-color:#000000;border-bottom-color:#000000;min-width:50px')
+            nobr {status: ERROR_CODE, message: ERROR_MESSAGE}
+        tr(style='height:75.6px;')
+          td(style='text-align:center;min-width:50px')
+            nobr Login
+          td(style='text-align:center;background-color:#339966;min-width:50px')
+            nobr POST
+          td(style='min-width:50px')
+            nobr /api/login
+          td(style='min-width:50px')
+            nobr
+              | userName: STRING_VALUE,
+              br
+              | password: STRING_VALUE
+          td(style='min-width:50px')
+            nobr {status:0, node:USER_DATA}
+          td(style='border-right:1px solid;border-bottom:1px solid;border-right-color:#000000;border-bottom-color:#000000;min-width:50px')
+            nobr
+              | {status: ERROR_CODE, message: ERROR_MESSAGE}
+              br
+              | 400: General Error
+              br
+              | 401: Incorrect Password
+              br
+              | 402: Invalid Username
+    hr
