@@ -29,7 +29,6 @@ router.post('/', function(req, res){
 					}
 					res.end();
 				});
-				res.json({status: 0, node: node[0]});
 			}
 		}
 	});
