@@ -18,7 +18,7 @@ exports.all = function(req, res, cb){
 	db.listAllLabels(function(err, node){
 		console.log(node);
 		//db.readNodesWithLabel("Customer", cb);
-		db.readNodesWithLabelsAndProperties('User', {userRole: "Customer", deleted: false}, cb);
+		db.readNodesWithLabelsAndProperties('User', {userRole: "Customer", valid: true}, cb);
 	})
 }
 
@@ -28,7 +28,7 @@ exports.get = function(req, res, cb){
 	}
 	
 	console.log("Trying to read Customer:", req.params.uuid);
-	db.readNodesWithLabelsAndProperties('User', {customerID: req.params.uuid, userRole: "Customer", deleted: false}, cb);
+	db.readNodesWithLabelsAndProperties('User', {customerID: req.params.uuid, userRole: "Customer", valid: true}, cb);
 }
 
 exports.add = function(req, res, cb){
@@ -39,7 +39,7 @@ exports.add = function(req, res, cb){
 	
 	db.readNodesWithLabelsAndProperties(
 			'User',
-			{userName: req.body.userName, deleted: false},
+			{userName: req.body.userName, valid: true},
 			function(err, node){
 				if (err)
 					return cb(err, "Failed in Add");
@@ -54,7 +54,7 @@ exports.add = function(req, res, cb){
 						company: req.body.company,
 						password: digest,
 						userRole: 'Customer',
-						deleted: false
+						valid: true
 					}, 'User', function(err, node){
 						if (err)
 							cb(err, "Company already registered", 0);
@@ -88,7 +88,7 @@ exports.edit = function(req, res, cb){
 	console.log("Trying to edit Customer:" + req.params.uuid, data);
 	db.readNodesWithLabelsAndProperties(
 			'User',
-			{userName: req.body.userName, deleted: false},
+			{userName: req.body.userName, valid: true},
 			function(err, node){
 				if (err)
 					return cb(err, "Failed in Add");
@@ -107,7 +107,7 @@ exports.del = function(req, res, cb){
 	}
 	
 	console.log("Trying to delete Customer:", req.params.uuid);
-	db.updateNodesWithLabelsAndProperties('User', {customerID:req.params.uuid}, {deleted: true}, cb);
+	db.updateNodesWithLabelsAndProperties('User', {customerID:req.params.uuid}, {valid: false}, cb);
 	
 	/*
 	var query = "MATCH (n {customerID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";

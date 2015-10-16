@@ -8,7 +8,7 @@ exports.all = function(req, res, cb){
 	db.listAllLabels(function(err, node){
 		console.log(node);
 		//db.readNodesWithLabel("User", cb);
-		db.readNodesWithLabelsAndProperties('User', {userRole: "User", deleted: false}, cb);
+		db.readNodesWithLabelsAndProperties('User', {userRole: "User", valid: true}, cb);
 	})
 }
 
@@ -18,7 +18,7 @@ exports.get = function(req, res, cb){
 	}
 	
 	console.log("Trying to read User:", req.params.uuid);
-	db.readNodesWithLabelsAndProperties('User', {userID: req.params.uuid, userRole: "User", deleted: false}, cb);
+	db.readNodesWithLabelsAndProperties('User', {userID: req.params.uuid, userRole: "User", valid: true}, cb);
 }
 
 exports.add = function(req, res, cb){
@@ -32,7 +32,7 @@ exports.add = function(req, res, cb){
 	
 	db.readNodesWithLabelsAndProperties(
 			'User',
-			{userName: req.body.userName, deleted: false},
+			{userName: req.body.userName, valid: true},
 			function(err, node){
 				if (err)
 					return cb(err, "Failed in Add");
@@ -47,7 +47,7 @@ exports.add = function(req, res, cb){
 						country: req.body.country,
 						customerID: req.body.customerID,
 						userRole: userRole,
-						deleted: false
+						valid: true
 					}, 'User', function(err, node){
 						if (err){
 							console.log(node);
@@ -82,7 +82,7 @@ exports.edit = function(req, res, cb){
 	console.log("Trying to edit User:" + req.params.uuid, data);
 	db.readNodesWithLabelsAndProperties(
 			'User',
-			{userName: req.body.userName, deleted: false},
+			{userName: req.body.userName, valid: true},
 			function(err, node){
 				if (err)
 					return cb(err, "Failed in Edit");
@@ -102,7 +102,7 @@ exports.del = function(req, res, cb){
 	
 	var query = "MATCH (n {userID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
 	console.log("Trying to delete User:", req.params.uuid);
-	db.updateNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, {deleted: true}, cb);
+	db.updateNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, {valid: false}, cb);
 	
 //	db.cypherQuery(query, function(err, result){
 //		if (err){
