@@ -86,19 +86,7 @@ exports.edit = function(req, res, cb){
 		data.company = req.body.company;
 	
 	console.log("Trying to edit Customer:" + req.params.uuid, data);
-	db.readNodesWithLabelsAndProperties(
-			'User',
-			{userName: req.body.userName, valid: true},
-			function(err, node){
-				if (err)
-					return cb(err, "Failed in Add");
-				else if (node && node.length > 0){
-					return cb(401, "Username already exists!");
-				}else{
-					db.updateNodesWithLabelsAndProperties('User', {customerID:req.params.uuid}, data, cb);
-				}
-			}
-	);
+	db.updateNodesWithLabelsAndProperties('User', {customerID:req.params.uuid}, data, cb);
 }
 
 exports.del = function(req, res, cb){
