@@ -26,6 +26,9 @@ exports.add = function(req, res, cb){
 	
 	var _uuid = uuid.v4();
 	var digest = crypto.createHash('md5').update(req.body.password).digest("hex");
+	var userRole = req.body.userRole;
+	if (!userRole)
+		userRole = "User";
 	
 	db.insertNode({
 		userID: _uuid,
@@ -34,7 +37,7 @@ exports.add = function(req, res, cb){
 		fullName: req.body.fullName,
 		country: req.body.country,
 		customerID: req.body.customerID,
-		userRole: 'User',
+		userRole: userRole,
 		deleted: false
 	}, 'User', function(err, node){
 		if (err){
