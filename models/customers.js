@@ -17,8 +17,7 @@ exports.all = function(req, res, cb){
 	console.log("Trying to get all Customers");
 	db.listAllLabels(function(err, node){
 		console.log(node);
-		//db.readNodesWithLabel("Customer", cb);
-		db.readNodesWithLabelsAndProperties('Customer', {deleted: false}, cb);
+		db.readNodesWithLabel("Customer", cb);
 	})
 }
 
