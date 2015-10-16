@@ -18,7 +18,9 @@ router.get('/', function(req, res){
 router.get('/admin', function(req, res){
 	req.body = {
 			userName: "admin",
-			password: "admin"
+			password: "admin",
+			userRole: "Administrator",
+			deleted: false
 	};
 	users.add(req, res, function(err, node){
 		if (err){

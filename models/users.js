@@ -7,7 +7,8 @@ exports.all = function(req, res, cb){
 	console.log("Trying to get all Users");
 	db.listAllLabels(function(err, node){
 		console.log(node);
-		db.readNodesWithLabel("User", cb);
+		//db.readNodesWithLabel("User", cb);
+		db.readNodesWithLabelsAndProperties('User', {userRole: "User", deleted: false}, cb);
 	})
 }
 
@@ -17,7 +18,7 @@ exports.get = function(req, res, cb){
 	}
 	
 	console.log("Trying to read User:", req.params.uuid);
-	db.readNodesWithLabelsAndProperties('User', {userID: req.params.uuid}, cb);
+	db.readNodesWithLabelsAndProperties('User', {userID: req.params.uuid, userRole: "User", deleted: false}, cb);
 }
 
 exports.add = function(req, res, cb){
@@ -32,11 +33,14 @@ exports.add = function(req, res, cb){
 		password: digest,
 		fullName: req.body.fullName,
 		country: req.body.country,
-		customerID: req.body.customerID
+		customerID: req.body.customerID,
+		userRole: 'User',
+		deleted: false
 	}, 'User', function(err, node){
-		if (err)
+		if (err){
+			console.log(node);
 			cb(err, "Username already exists", 0);
-		else
+		}else
 			cb(err, node, 0);
 	});
 }

@@ -17,7 +17,8 @@ exports.all = function(req, res, cb){
 	console.log("Trying to get all Customers");
 	db.listAllLabels(function(err, node){
 		console.log(node);
-		db.readNodesWithLabel("Customer", cb);
+		//db.readNodesWithLabel("Customer", cb);
+		db.readNodesWithLabelsAndProperties('Customer', {userRole: "Customer", deleted: false}, cb);
 	})
 }
 
@@ -27,7 +28,7 @@ exports.get = function(req, res, cb){
 	}
 	
 	console.log("Trying to read Customer:", req.params.uuid);
-	db.readNodesWithLabelsAndProperties('Customer', {customerID: req.params.uuid}, cb);
+	db.readNodesWithLabelsAndProperties('Customer', {customerID: req.params.uuid, userRole: "Customer", deleted: false}, cb);
 }
 
 exports.add = function(req, res, cb){
@@ -42,8 +43,10 @@ exports.add = function(req, res, cb){
 		address: req.body.address,
 		userName: req.body.userName,
 		company: req.body.company,
-		password: digest
-	}, 'Customer', function(err, node){
+		password: digest,
+		userRole: 'Customer',
+		deleted: false
+	}, 'User', function(err, node){
 		if (err)
 			cb(err, "Company already registered", 0);
 		else
@@ -71,7 +74,7 @@ exports.edit = function(req, res, cb){
 		data.company = req.body.company;
 	
 	console.log("Trying to edit Customer:" + req.params.uuid, data);
-	db.updateNodesWithLabelsAndProperties('Customer', {customerID:req.params.uuid}, data, cb);
+	db.updateNodesWithLabelsAndProperties('User', {customerID:req.params.uuid}, data, cb);
 }
 
 exports.del = function(req, res, cb){
@@ -80,7 +83,7 @@ exports.del = function(req, res, cb){
 	}
 	
 	console.log("Trying to delete Customer:", req.params.uuid);
-	db.updateNodesWithLabelsAndProperties([], {customerID:req.params.uuid}, {deleted: true}, cb);
+	db.updateNodesWithLabelsAndProperties('User', {customerID:req.params.uuid}, {deleted: true}, cb);
 	
 	/*
 	var query = "MATCH (n {customerID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
