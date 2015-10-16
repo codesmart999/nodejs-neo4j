@@ -69,7 +69,9 @@ exports.del = function(req, res, cb){
 		if (err || !node)
 			return cb("401", "Failed in deleting Module");
 		else{
-			db.deleteNodesWithLabelsAndProperties('Module', {moduleID:req.params.uuid}, function(err, node){
+			query = "MATCH (n {moduleID: '" + req.params.uuid + "'}) DELETE n";
+			db.cypherQuery(query, cb);
+			/*db.deleteNodesWithLabelsAndProperties('Module', {moduleID:req.params.uuid}, function(err, node){
 				if (err)
 					return cb(err, "Failed in deleting Module");
 				if (node === true){
@@ -77,7 +79,7 @@ exports.del = function(req, res, cb){
 				}else {
 					return cb("401", "Failed in deleting Module due to existing relationships");
 				}
-			});
+			});*/
 		}
 	});
 }
