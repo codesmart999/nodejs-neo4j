@@ -80,7 +80,7 @@ exports.del = function(req, res, cb){
 	}
 	
 	console.log("Trying to delete Customer:", req.params.uuid);
-	db.updateNodesWithLabelsAndProperties('', {customerID:req.params.uuid}, {deleted: true}, cb);
+	db.updateNodesWithLabelsAndProperties([], {customerID:req.params.uuid}, {deleted: true}, cb);
 	
 	/*
 	var query = "MATCH (n {customerID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
