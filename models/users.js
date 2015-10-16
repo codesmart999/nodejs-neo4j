@@ -30,22 +30,34 @@ exports.add = function(req, res, cb){
 	if (!userRole)
 		userRole = "User";
 	
-	db.insertNode({
-		userID: _uuid,
-		userName: req.body.userName,
-		password: digest,
-		fullName: req.body.fullName,
-		country: req.body.country,
-		customerID: req.body.customerID,
-		userRole: userRole,
-		deleted: false
-	}, 'User', function(err, node){
-		if (err){
-			console.log(node);
-			cb(err, "Username already exists", 0);
-		}else
-			cb(err, node, 0);
-	});
+	db.readNodesWithLabelsAndProperties(
+			'User',
+			{userName: req.body.userName, deleted: false},
+			function(err, node){
+				if (err)
+					return cb(err, "Failed in Add");
+				else if (node && node.length > 0){
+					return cb(401, "Username already exists!");
+				}else{
+					db.insertNode({
+						userID: _uuid,
+						userName: req.body.userName,
+						password: digest,
+						fullName: req.body.fullName,
+						country: req.body.country,
+						customerID: req.body.customerID,
+						userRole: userRole,
+						deleted: false
+					}, 'User', function(err, node){
+						if (err){
+							console.log(node);
+							cb(err, node, 0);
+						}else
+							cb(err, node, 0);
+					});
+				}
+			}
+	);
 }
 
 exports.edit = function(req, res, cb){
@@ -68,7 +80,19 @@ exports.edit = function(req, res, cb){
 		data.customerID = req.body.customerID;
 	
 	console.log("Trying to edit User:" + req.params.uuid, data);
-	db.updateNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, data, cb);
+	db.readNodesWithLabelsAndProperties(
+			'User',
+			{userName: req.body.userName, deleted: false},
+			function(err, node){
+				if (err)
+					return cb(err, "Failed in Edit");
+				else if (node && node.length > 0){
+					return cb(401, "Username already exists!");
+				}else{
+					db.updateNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, data, cb);
+				}
+			}
+	);
 }
 
 exports.del = function(req, res, cb){

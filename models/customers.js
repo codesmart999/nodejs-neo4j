@@ -37,21 +37,33 @@ exports.add = function(req, res, cb){
 	var _uuid = uuid.v4();
 	var digest = crypto.createHash('md5').update(req.body.password).digest("hex");
 	
-	db.insertNode({
-		customerID: _uuid,
-		fullName: req.body.fullName,
-		address: req.body.address,
-		userName: req.body.userName,
-		company: req.body.company,
-		password: digest,
-		userRole: 'Customer',
-		deleted: false
-	}, 'User', function(err, node){
-		if (err)
-			cb(err, "Company already registered", 0);
-		else
-			cb(err, node, 0);
-	});
+	db.readNodesWithLabelsAndProperties(
+			'User',
+			{userName: req.body.userName, deleted: false},
+			function(err, node){
+				if (err)
+					return cb(err, "Failed in Add");
+				else if (node && node.length > 0){
+					return cb(401, "Username already exists!");
+				}else{
+					db.insertNode({
+						customerID: _uuid,
+						fullName: req.body.fullName,
+						address: req.body.address,
+						userName: req.body.userName,
+						company: req.body.company,
+						password: digest,
+						userRole: 'Customer',
+						deleted: false
+					}, 'User', function(err, node){
+						if (err)
+							cb(err, "Company already registered", 0);
+						else
+							cb(err, node, 0);
+					});
+				}
+			}
+	);
 }
 
 exports.edit = function(req, res, cb){
@@ -74,7 +86,19 @@ exports.edit = function(req, res, cb){
 		data.company = req.body.company;
 	
 	console.log("Trying to edit Customer:" + req.params.uuid, data);
-	db.updateNodesWithLabelsAndProperties('User', {customerID:req.params.uuid}, data, cb);
+	db.readNodesWithLabelsAndProperties(
+			'User',
+			{userName: req.body.userName, deleted: false},
+			function(err, node){
+				if (err)
+					return cb(err, "Failed in Add");
+				else if (node && node.length > 0){
+					return cb(401, "Username already exists!");
+				}else{
+					db.updateNodesWithLabelsAndProperties('User', {customerID:req.params.uuid}, data, cb);
+				}
+			}
+	);
 }
 
 exports.del = function(req, res, cb){
