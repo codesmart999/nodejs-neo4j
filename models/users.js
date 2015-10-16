@@ -71,6 +71,8 @@ exports.del = function(req, res, cb){
 	
 	var query = "MATCH (n {userID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
 	console.log("Trying to delete User:", req.params.uuid);
+	db.updateNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, {deleted: true}, cb);
+	
 //	db.cypherQuery(query, function(err, result){
 //		if (err){
 //			console.log("Failed in deleting User:", result);
@@ -78,7 +80,14 @@ exports.del = function(req, res, cb){
 //		}
 //		return cb(err, result);
 //	});
-	db.cypherQuery(query, cb);
+/*	db.cypherQuery(query, function(err, node){
+		if (err)
+			return cb(err, node);
+		else{
+			query = "MATCH (n {userID: '" + req.params.uuid + "'}) DELETE n";
+			db.cypherQuery(query, cb);
+		}
+	});*/
 }
 
 /**

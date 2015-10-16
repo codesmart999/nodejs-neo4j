@@ -79,11 +79,21 @@ exports.del = function(req, res, cb){
 		return cb("404", "UUID Missing");
 	}
 	
-	var query = "MATCH (n {customerID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
 	console.log("Trying to delete Customer:", req.params.uuid);
-	db.cypherQuery(query, cb);
+	db.updateNodesWithLabelsAndProperties('Customer', {customerID:req.params.uuid}, {deleted: true}, cb);
+	
+	/*
+	var query = "MATCH (n {customerID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
+	db.cypherQuery(query, function(err, node){
+		if (err){
+			return cb(err, node);
+		}else{
+			query = "MATCH (n {customerID: '" + req.params.uuid + "'}) DELETE n";
+			db.cypherQuery(query, cb);
+		}
+	});
+	*/
 }
-
 
 /**
  * Add Relationship between a customer and modules.

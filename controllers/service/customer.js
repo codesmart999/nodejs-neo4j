@@ -130,7 +130,7 @@ router.delete('/:uuid', function(req, res){
 		if (err){
 			console.log(err);
 			
-			res.json({status: err, message: node});
+			res.json({status: err, message: "Failed in deleting Customer"});
 		}else{
 			//node deleted
 			res.json({status: 0})
@@ -143,7 +143,7 @@ router.get('/del/:uuid', function(req, res){
 		if (err){
 			console.log(err);
 			
-			res.json({status: err, message: node});
+			res.json({status: err, message: "Failed in deleting Customer"});
 		}else{
 			//node deleted
 			res.json({status: 0})

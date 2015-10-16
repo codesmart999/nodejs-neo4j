@@ -64,22 +64,20 @@ exports.del = function(req, res, cb){
 	}
 	var query = "MATCH (n {moduleID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
 	console.log("Trying to delete Module:", req.params.uuid);
-//	db.cypherQuery(query, function(err, result){
-//		if (err){
-//			console.log("Failed in deleting User:", result);
-//			return cb(err, "Failed in deleting User");
-//		}
-//		return cb(err, result);
-//	});
-	db.cypherQuery(query, cb);
-	
-	/*db.deleteNodesWithLabelsAndProperties('Module', {moduleID:req.params.uuid}, function(err, node){
-		if (err)
-			return cb(err, "Failed in deleting Module");
-		//if (node === true){
-			return cb(err, node);
-		//}else {
-		//	return cb("401", "Failed in deleting Module due to existing relationships");
-		//}
-	});*/
+
+	db.cypherQuery(query, function(err, node){
+		if (err || !node)
+			return cb("401", "Failed in deleting Module");
+		else{
+			db.deleteNodesWithLabelsAndProperties('Module', {moduleID:req.params.uuid}, function(err, node){
+				if (err)
+					return cb(err, "Failed in deleting Module");
+				if (node === true){
+					return cb(err, node);
+				}else {
+					return cb("401", "Failed in deleting Module due to existing relationships");
+				}
+			});
+		}
+	});
 }
