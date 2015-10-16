@@ -18,7 +18,7 @@ exports.all = function(req, res, cb){
 	db.listAllLabels(function(err, node){
 		console.log(node);
 		//db.readNodesWithLabel("Customer", cb);
-		db.readNodesWithLabelsAndProperties('Customer', {userRole: "Customer", deleted: false}, cb);
+		db.readNodesWithLabelsAndProperties('User', {userRole: "Customer", deleted: false}, cb);
 	})
 }
 
@@ -28,7 +28,7 @@ exports.get = function(req, res, cb){
 	}
 	
 	console.log("Trying to read Customer:", req.params.uuid);
-	db.readNodesWithLabelsAndProperties('Customer', {customerID: req.params.uuid, userRole: "Customer", deleted: false}, cb);
+	db.readNodesWithLabelsAndProperties('User', {customerID: req.params.uuid, userRole: "Customer", deleted: false}, cb);
 }
 
 exports.add = function(req, res, cb){
