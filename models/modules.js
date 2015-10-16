@@ -3,7 +3,7 @@ var uuid = require('node-uuid');
 var crypto = require('crypto');
 
 exports.all = function(req, res, cb){
-//	var id = uuid.v1();
+//	var id = uuid.v4();
 //	
 //	db.insertNode({
 //		moduleID: id,
@@ -31,7 +31,7 @@ exports.get = function(req, res, cb){
 exports.add = function(req, res, cb){
 	console.log("Trying to add Module:", req.body)
 	
-	var _uuid = uuid.v1();
+	var _uuid = uuid.v4();
 	
 	db.insertNode({
 		moduleID: _uuid,

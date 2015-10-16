@@ -3,7 +3,7 @@ var uuid = require('node-uuid');
 var crypto = require('crypto');
 
 exports.all = function(req, res, cb){
-//	var id = uuid.v1();
+//	var id = uuid.v4();
 	
 //	var digest = crypto.createHash('md5').update("123456789").digest("hex");
 //	
@@ -33,7 +33,7 @@ exports.get = function(req, res, cb){
 exports.add = function(req, res, cb){
 	console.log("Trying to add Customer:", req.body)
 	
-	var _uuid = uuid.v1();
+	var _uuid = uuid.v4();
 	var digest = crypto.createHash('md5').update(req.body.password).digest("hex");
 	
 	db.insertNode({
