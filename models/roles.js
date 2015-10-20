@@ -11,7 +11,7 @@ exports.all = function(req, res, cb){
 	var _uuid = uuid.v4();
 	db.insertNode({
 		roleID: _uuid,
-		name: "Customer",
+		name: "User",
 	}, 'Role', cb);
 }
 
