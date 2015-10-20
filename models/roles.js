@@ -4,15 +4,15 @@ var crypto = require('crypto');
 
 exports.all = function(req, res, cb){
 	console.log("Trying to get all Roles");
-//	db.listAllLabels(function(err, node){
-//		console.log(node);
-//		db.readNodesWithLabel("Role", cb);
-//	})
-	var _uuid = uuid.v4();
-	db.insertNode({
-		roleID: _uuid,
-		name: "User",
-	}, 'Role', cb);
+	db.listAllLabels(function(err, node){
+		console.log(node);
+		db.readNodesWithLabel("Role", cb);
+	})
+//	var _uuid = uuid.v4();
+//	db.insertNode({
+//		roleID: _uuid,
+//		name: "User",
+//	}, 'Role', cb);
 }
 
 exports.get = function(req, res, cb){
