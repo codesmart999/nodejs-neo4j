@@ -1,9 +1,9 @@
 var express = require('express')
 	, router = express.Router()
-	, regions = require('./../../models/regions')
+	, sitetypes = require('./../../models/sitetypes')
 
 router.get('/', function(req, res){
-	regions.all(req, res, function(err, node){
+	sitetypes.all(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			res.json({status: 401});
@@ -15,7 +15,7 @@ router.get('/', function(req, res){
 })
 
 router.get('/:uuid', function(req, res){
-	regions.get(req, res, function(err, node){
+	sitetypes.get(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			
@@ -29,11 +29,11 @@ router.get('/:uuid', function(req, res){
 })
 
 router.post('/add', function(req, res){
-	regions.add(req, res, function(err, node){
+	sitetypes.add(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			
-			res.json({status: err, message: "Region Name already exists!"});
+			res.json({status: err, message: "Module Name already exists!"});
 		}else{
 			res.json({status: 0});
 		}
@@ -41,7 +41,7 @@ router.post('/add', function(req, res){
 })
 
 router.post('/edit/:uuid', function(req, res){
-	regions.edit(req, res, function(err, node){
+	sitetypes.edit(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			
@@ -53,7 +53,7 @@ router.post('/edit/:uuid', function(req, res){
 })
 
 router.delete('/:uuid', function(req, res){
-	regions.del(req, res, function(err, node){
+	sitetypes.del(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			
@@ -66,7 +66,7 @@ router.delete('/:uuid', function(req, res){
 })
 
 router.get('/del/:uuid', function(req, res){
-	regions.del(req, res, function(err, node){
+	sitetypes.del(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			
