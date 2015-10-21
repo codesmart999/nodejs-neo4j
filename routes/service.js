@@ -13,8 +13,8 @@ router.use('/user', require('./../controllers/service/user'))
 router.use('/login', require('./../controllers/service/login'))
 router.use('/role', require('./../controllers/service/role'))
 router.use('/region', require('./../controllers/service/region'))
-router.use('/region', require('./../controllers/service/department'))
-router.use('/region', require('./../controllers/service/sitetype'))
-router.use('/region', require('./../controllers/service/zonetype'))
+router.use('/department', require('./../controllers/service/department'))
+router.use('/sitetype', require('./../controllers/service/sitetype'))
+router.use('/zonetype', require('./../controllers/service/zonetype'))
 
 module.exports = router;
