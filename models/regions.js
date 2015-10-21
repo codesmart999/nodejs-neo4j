@@ -27,8 +27,9 @@ exports.add = function(req, res, cb){
 	db.insertNode({
 		regionID: _uuid,
 		name: req.body.name,
-		link: req.body.link,
-		icon: req.body.icon,
+		manager: req.body.manager,
+		customerID: req.body.customerID,
+		createdDTS: Date.now(),
 	}, 'Region', cb);
 }
 
@@ -40,10 +41,10 @@ exports.edit = function(req, res, cb){
 	
 	if (req.body.name)
 		data.name = req.body.name;
-	if (req.body.link)
-		data.link = req.body.link;
-	if (req.body.icon)
-		data.icon = req.body.icon;
+	if (req.body.manager)
+		data.link = req.body.manager;
+	if (req.body.customerID)
+		data.icon = req.body.customerID;
 
 	console.log("Trying to edit Region:" + req.params.uuid, data);
 	db.updateNodesWithLabelsAndProperties('Region', {regionID:req.params.uuid}, data, cb);
