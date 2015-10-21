@@ -12,5 +12,6 @@ router.use('/module', require('./../controllers/service/module'))
 router.use('/user', require('./../controllers/service/user'))
 router.use('/login', require('./../controllers/service/login'))
 router.use('/role', require('./../controllers/service/role'))
+router.use('/region', require('./../controllers/service/region'))
 
 module.exports = router;
