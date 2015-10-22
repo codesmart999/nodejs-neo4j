@@ -41,7 +41,7 @@ exports.edit = function(req, res, cb){
 	if (req.body.name)
 		data.name = req.body.name;
 	if (req.body.customerID)
-		data.icon = req.body.customerID;
+		data.customerID = req.body.customerID;
 
 	console.log("Trying to edit Department:" + req.params.uuid, data);
 	db.updateNodesWithLabelsAndProperties('Department', {departmentID:req.params.uuid}, data, cb);
