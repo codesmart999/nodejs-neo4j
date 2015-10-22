@@ -42,15 +42,15 @@ router.get('/:uuid', function(req, res){
 })
 
 router.post('/add', function(req, res){
-	regions.add(req, res, function(err, node){
-		if (err){
-			console.log(err);
-			
-			res.json({status: err, message: "Region Name already exists!"});
-		}else{
-			res.json({status: 0});
-		}
-	});
+//	regions.add(req, res, function(err, node){
+//		if (err){
+//			console.log(err);
+//			
+//			res.json({status: err, message: "Region Name already exists!"});
+//		}else{
+//			res.json({status: 0});
+//		}
+//	});
 	var func_add_region = function(callback){
 		regions.add(req, res, callback);
  	};

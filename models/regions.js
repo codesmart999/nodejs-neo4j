@@ -30,7 +30,12 @@ exports.add = function(req, res, cb){
 		manager: req.body.manager,
 		customerID: req.body.customerID,
 		createdDTS: Date.now(),
-	}, 'Region', cb);
+	}, 'Region', function(err, node){
+		if (err)
+			return cb("401", "Region Name already exists!");
+		else
+			cb(err, node);
+	});
 }
 
 exports.edit = function(req, res, cb){
@@ -89,16 +94,17 @@ exports.addRelationshipBetweenCustomer = function(req, res, region, cb){
 	console.log("Trying to create relationships FROM Customer:", req.body.customerID);
 	console.log("Trying to create relationships TO Region:", region.regionID);
 	
-	db.insertRelationship(
-			customer._id,
-			req.body.module[module_index],
-			'Customer_Region',
-			{access: 'yes'},
-			function(err, relationship){
-				if (err)
-					return cb(err, "Failed to Create Relationship");
-				
-				cb(err, customer, module_index + 1);
-			}
-	);
+//	db.insertRelationship(
+//			customer._id,
+//			req.body.module[module_index],
+//			'Customer_Region',
+//			{access: 'yes'},
+//			function(err, relationship){
+//				if (err)
+//					return cb(err, "Failed to Create Relationship");
+//				
+//				cb(err, customer, module_index + 1);
+//			}
+//	);
+	cb(0, region);
 }
