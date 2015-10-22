@@ -4,7 +4,7 @@ var crypto = require('crypto');
 
 exports.all = function(req, res, cb){
 	var query = "MATCH (department:Department), (customer:User)"
-				+ " WHERE department.customerID = customer.customerID AND customer.valid=true AND customer.userRole = 'Customer'"
+				+ " WHERE department.customerID = customer.userID AND customer.valid=true"
 				+ " RETURN department.name AS name, customer.fullName AS customerName, department.departmentID as departmentID";
 
 	db.cypherQuery(query, function (err, node){
