@@ -41,7 +41,7 @@ exports.edit = function(req, res, cb){
 	if (req.body.name)
 		data.name = req.body.name;
 	if (req.body.replenSource)
-		data.link = req.body.replenSource;
+		data.replenSource = req.body.replenSource;
 
 	console.log("Trying to edit Zonetype:" + req.params.uuid, data);
 	db.updateNodesWithLabelsAndProperties('Zonetype', {zonetypeID:req.params.uuid}, data, cb);
