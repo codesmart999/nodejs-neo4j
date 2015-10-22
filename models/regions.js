@@ -3,11 +3,39 @@ var uuid = require('node-uuid');
 var crypto = require('crypto');
 
 exports.all = function(req, res, cb){
-	console.log("Trying to get all Regions");
 	db.listAllLabels(function(err, node){
 		console.log(node);
 		db.readNodesWithLabel("Region", cb);
 	})
+	var query = "";
+	if (req.params && req.params.customerID){
+		console.log("Trying to get Regions of Customer:" + req.params.customerID);
+		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r]-(region:Region)"
+			+ " RETURN customer.fullName, region.regionID, region.manager, region.name, region.customerID";
+	}else{
+		console.log("Trying to get all Regions");
+		query = "MATCH (customer:User)-[r]-(region:Region)"
+		+ " RETURN customer.fullName, region.regionID, region.manager, region.name, region.customerID";
+	}
+
+	db.cypherQuery(query, function(err, node){
+		if (err)
+			return cb(err, node);
+		else{
+			var result = [];
+			for (var i=0; i<node.data.length; i++){
+				var item = {
+						fullName: node.data[i][0],
+						regionID: node.data[i][1],
+						manager: node.data[i][2],
+						name: node.data[i][3],
+						customerID: node.data[i][4]
+				};
+				result[result.length] = item;
+			}
+			return cb(err, result);
+		}
+	});
 }
 
 exports.get = function(req, res, cb){
