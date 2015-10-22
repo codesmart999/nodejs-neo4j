@@ -9,7 +9,7 @@ router.post('/', function(req, res){
 			
 			res.json({status: err, message: node});
 		}else{
-			if (node[0].userName == "admin" || node[0].userID)
+			if (node[0].userRole == "Administrator" || node[0].userRole == "User")
 				res.json({status: 0, node: node[0]});
 			else{
 				users.getRelationships(req, res, node[0], function(err, result){
