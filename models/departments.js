@@ -3,11 +3,11 @@ var uuid = require('node-uuid');
 var crypto = require('crypto');
 
 exports.all = function(req, res, cb){
-	console.log("Trying to get all Departments");
-	db.listAllLabels(function(err, node){
-		console.log(node);
-		db.readNodesWithLabel("Department", cb);
-	})
+//	console.log("Trying to get all Departments");
+//	db.listAllLabels(function(err, node){
+//		console.log(node);
+//		db.readNodesWithLabel("Department", cb);
+//	})
 	
 	var query = "MATCH (department:Department), (customer:User)"
 				+ " WHERE department.customerID = customer.customerID AND customer.valid=true AND customer.userRole = 'Customer'"
