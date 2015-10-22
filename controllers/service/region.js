@@ -87,7 +87,7 @@ router.post('/edit/:uuid', function(req, res){
 //			res.json({status: 0});
 //		}
 //	});
-	var func_edit_user = function(callback){
+	var func_edit_region = function(callback){
 		regions.edit(req, res, callback);
 	}
 	var func_del_relationships = function(node, callback){
@@ -98,11 +98,11 @@ router.post('/edit/:uuid', function(req, res){
 			callback("404", "Not Found");
 		}
 	}
-	var func_add_relationship = function(callback){
+	var func_add_relationship = function(result, callback){
  		regions.addRelationshipBetweenCustomer(req, res, res.region, callback);
  	}
 	
-	var call_stack = [func_edit_user, func_del_relationships, func_add_relationship];
+	var call_stack = [func_edit_region, func_del_relationships, func_add_relationship];
  	
  	async.waterfall(
 			call_stack,
