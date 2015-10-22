@@ -92,14 +92,14 @@ router.post('/edit/:uuid', function(req, res){
 	}
 	var func_del_relationships = function(node, callback){
 		if (node && node.length > 0){
-			res.user = node[0];
+			res.region = node[0];
 			regions.delRelationships(req, res, callback);
 		}else{
 			callback("404", "Not Found");
 		}
 	}
 	var func_add_relationship = function(callback){
- 		regions.addRelationship(req, res, callback);
+ 		regions.addRelationshipBetweenCustomer(req, res, res.region, callback);
  	}
 	
 	var call_stack = [func_edit_user, func_del_relationships, func_add_relationship];
