@@ -50,6 +50,30 @@ router.post('/add', function(req, res){
 			res.json({status: 0});
 		}
 	});
+	var func_add_region = function(callback){
+		regions.add(req, res, callback);
+ 	};
+ 	var func_add_relationship = function(region, callback){
+ 		regions.addRelationshipBetweenCustomer(req, res, region, callback);
+ 	}
+	
+ 	var call_stack = [func_add_region, func_add_relationship];
+	
+ 	async.waterfall(
+			call_stack,
+			
+			//if succeeds, result will hold information of the relationship.
+			function(err, result){
+				if (err){
+					console.log(err);
+					
+					res.json({status: err, message: result});
+				}else{
+					res.json({status: 0});
+				}
+				res.end();
+			}
+	);
 })
 
 router.post('/edit/:uuid', function(req, res){

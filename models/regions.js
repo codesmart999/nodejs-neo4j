@@ -42,9 +42,9 @@ exports.edit = function(req, res, cb){
 	if (req.body.name)
 		data.name = req.body.name;
 	if (req.body.manager)
-		data.link = req.body.manager;
+		data.manager = req.body.manager;
 	if (req.body.customerID)
-		data.icon = req.body.customerID;
+		data.customerID = req.body.customerID;
 
 	console.log("Trying to edit Region:" + req.params.uuid, data);
 	db.updateNodesWithLabelsAndProperties('Region', {regionID:req.params.uuid}, data, cb);
@@ -74,4 +74,31 @@ exports.del = function(req, res, cb){
 			});*/
 		}
 	});
+}
+
+/**
+ * Add Relationship between a customer and regions.
+ * 
+ * Parameters
+ * @req: req.body.module contains an array of module _ids
+ * @res:
+ * @node: Newly Inserted Customer
+ * @cb: callback function
+ */
+exports.addRelationshipBetweenCustomer = function(req, res, region, cb){
+	console.log("Trying to create relationships FROM Customer:", req.body.customerID);
+	console.log("Trying to create relationships TO Region:", region.regionID);
+	
+	db.insertRelationship(
+			customer._id,
+			req.body.module[module_index],
+			'Customer_Region',
+			{access: 'yes'},
+			function(err, relationship){
+				if (err)
+					return cb(err, "Failed to Create Relationship");
+				
+				cb(err, customer, module_index + 1);
+			}
+	);
 }

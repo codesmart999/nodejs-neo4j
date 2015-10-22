@@ -8,7 +8,7 @@ exports.all = function(req, res, cb){
 //	var digest = crypto.createHash('md5').update("123456789").digest("hex");
 //	
 //	db.insertNode({
-//		customerID: id,
+//		userID: id,
 //		fullName: req.body.fullName,
 //		address: req.body.address,
 //		userName: req.body.userName,
@@ -28,7 +28,7 @@ exports.get = function(req, res, cb){
 	}
 	
 	console.log("Trying to read Customer:", req.params.uuid);
-	db.readNodesWithLabelsAndProperties('User', {customerID: req.params.uuid, userRole: "Customer", valid: true}, cb);
+	db.readNodesWithLabelsAndProperties('User', {userID: req.params.uuid, valid: true}, cb);
 }
 
 exports.add = function(req, res, cb){
@@ -47,7 +47,7 @@ exports.add = function(req, res, cb){
 					return cb(401, "Username already exists!");
 				}else{
 					db.insertNode({
-						customerID: _uuid,
+						userID: _uuid,
 						fullName: req.body.fullName,
 						address: req.body.address,
 						userName: req.body.userName,
@@ -86,7 +86,7 @@ exports.edit = function(req, res, cb){
 		data.company = req.body.company;
 	
 	console.log("Trying to edit Customer:" + req.params.uuid, data);
-	db.updateNodesWithLabelsAndProperties('User', {customerID:req.params.uuid}, data, cb);
+	db.updateNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, data, cb);
 }
 
 exports.del = function(req, res, cb){
@@ -95,15 +95,15 @@ exports.del = function(req, res, cb){
 	}
 	
 	console.log("Trying to delete Customer:", req.params.uuid);
-	db.updateNodesWithLabelsAndProperties('User', {customerID:req.params.uuid}, {valid: false}, cb);
+	db.updateNodesWithLabelsAndProperties('User', {userID:req.params.uuid}, {valid: false}, cb);
 	
 	/*
-	var query = "MATCH (n {customerID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
+	var query = "MATCH (n {userID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
 	db.cypherQuery(query, function(err, node){
 		if (err){
 			return cb(err, node);
 		}else{
-			query = "MATCH (n {customerID: '" + req.params.uuid + "'}) DELETE n";
+			query = "MATCH (n {userID: '" + req.params.uuid + "'}) DELETE n";
 			db.cypherQuery(query, cb);
 		}
 	});
@@ -151,7 +151,7 @@ exports.getRelationships = function(req, res, customer, cb){
 }
 
 exports.delRelationships = function(req, res, customer, cb){
-	var query = "MATCH (customer {customerID: '" + customer.customerID + "'})-[r]-() DELETE r";
+	var query = "MATCH (customer {userID: '" + customer.userID + "'})-[r]-() DELETE r";
 	console.log("Trying to delete Module Accesses:", customer);
 	db.cypherQuery(query, function(err, result){
 		cb(err, customer, 0);
