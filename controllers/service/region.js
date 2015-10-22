@@ -14,6 +14,18 @@ router.get('/', function(req, res){
 	});
 })
 
+router.get('/customer/:customerID', function(req, res){
+	regions.all(req, res, function(err, node){
+		if (err){
+			console.log(err);
+			res.json({status: 401});
+		}else{
+			console.log(node);
+			res.json(node);
+		}
+	});
+})
+
 router.get('/:uuid', function(req, res){
 	regions.get(req, res, function(err, node){
 		if (err){
