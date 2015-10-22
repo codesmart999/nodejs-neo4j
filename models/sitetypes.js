@@ -57,15 +57,6 @@ exports.del = function(req, res, cb){
 		else{
 			query = "MATCH (n {sitetypeID: '" + req.params.uuid + "'}) DELETE n";
 			db.cypherQuery(query, cb);
-			/*db.deleteNodesWithLabelsAndProperties('Sitetype', {sitetypeID:req.params.uuid}, function(err, node){
-				if (err)
-					return cb(err, "Failed in deleting Sitetype");
-				if (node === true){
-					return cb(err, node);
-				}else {
-					return cb("401", "Failed in deleting Sitetype due to existing relationships");
-				}
-			});*/
 		}
 	});
 }

@@ -27,7 +27,7 @@ exports.add = function(req, res, cb){
 	db.insertNode({
 		zonetypeID: _uuid,
 		name: req.body.name,
-		manager: req.body.replenSource,
+		replenSource: req.body.replenSource,
 		createdDTS: Date.now(),
 	}, 'Zonetype', cb);
 }
