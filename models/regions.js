@@ -106,5 +106,9 @@ exports.addRelationshipBetweenCustomer = function(req, res, region, cb){
 //				cb(err, customer, module_index + 1);
 //			}
 //	);
-	cb(0, region);
+	var query = "MATCH (customer:User {userID:'" + req.body.customerID + "'}),"
+		+ "(region:Region {regionID:'" + region.regionID + "'})"
+		+ " CREATE (customer)-[r:Customer_Region]->(region) RETURN r";
+
+	db.cypherQuery(query, cb);
 }
