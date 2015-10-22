@@ -3,10 +3,10 @@ var uuid = require('node-uuid');
 var crypto = require('crypto');
 
 exports.all = function(req, res, cb){
-	db.listAllLabels(function(err, node){
-		console.log(node);
-		db.readNodesWithLabel("Region", cb);
-	})
+//	db.listAllLabels(function(err, node){
+//		console.log(node);
+//		db.readNodesWithLabel("Region", cb);
+//	})
 	var query = "";
 	if (req.params && req.params.customerID){
 		console.log("Trying to get Regions of Customer:" + req.params.customerID);
