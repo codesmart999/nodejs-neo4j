@@ -11,7 +11,7 @@ exports.all = function(req, res, cb){
 	
 	var query = "MATCH (department:Department), (customer:User)"
 				+ " WHERE department.customerID = customer.customerID AND customer.valid=true AND customer.userRole = 'Customer'"
-				+ " RETURN department.name, customer.fullName, department.departmentID";
+				+ " RETURN department.name AS name, customer.fullName AS customerID, department.departmentID as departmentID";
 
 	db.cypherQuery(query, cb);
 }
