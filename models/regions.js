@@ -112,3 +112,9 @@ exports.addRelationshipBetweenCustomer = function(req, res, region, cb){
 
 	db.cypherQuery(query, cb);
 }
+
+exports.delRelationships = function(req, res, cb){
+	var query = "MATCH (region {regionID: '" + req.params.uuid + "'})-[r]-() DELETE r";
+	console.log("Trying to delete Customer_Region relationships. Region ID:", req.params.uuid);
+	db.cypherQuery(query, cb);
+}
