@@ -25,7 +25,7 @@ exports.all = function(req, res, cb){
 			var result = [];
 			for (var i=0; i<node.data.length; i++){
 				var item = {
-						fullName: node.data[i][0],
+						customer: node.data[i][0],
 						regionID: node.data[i][1],
 						manager: node.data[i][2],
 						name: node.data[i][3],
