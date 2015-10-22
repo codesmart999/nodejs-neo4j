@@ -1,6 +1,7 @@
 var express = require('express')
 	, router = express.Router()
 	, regions = require('./../../models/regions')
+	, async = require('async');
 
 router.get('/', function(req, res){
 	regions.all(req, res, function(err, node){
