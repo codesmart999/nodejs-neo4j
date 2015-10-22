@@ -17,7 +17,16 @@ exports.all = function(req, res, cb){
 		if (err)
 			return cb(err, node);
 		else{
-			
+			var result = [];
+			for (var i=0; i<node.data.length; i++){
+				var item = {
+						name: node.data[i][0],
+						customerName: node.data[i][1],
+						departmentID: node.data[i][2],
+				};
+				result[result.length] = item;
+			}
+			return cb(err, result);
 		}
 	});
 }
