@@ -165,7 +165,7 @@ exports.addRelationship = function(req, res, user, index, cb){
 				{access: 'yes'},
 				function(err, relationship){
 					if (err)
-						return cb(err, "Failed to Create Relationship");
+						return cb(err, "Failed to Create User-Module Relationship");
 					
 					cb(err, user, index + 1);
 				}
@@ -181,7 +181,12 @@ exports.addRelationship = function(req, res, user, index, cb){
 			+ "(zone:Zone {zoneID:'" + req.body.zone[index - module_length] + "'})"
 			+ " CREATE (user)-[r:User_Zone]->(zone) RETURN r";
 
-		db.cypherQuery(query, cb);
+		db.cypherQuery(query, function(err, relationship){
+			if (err)
+				return cb(err, "Failed to Create User-Zone Relationship");
+			
+			cb(err, user, index + 1);
+		});
 	}
 }
 
