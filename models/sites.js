@@ -7,11 +7,11 @@ exports.all = function(req, res, cb){
 	if (req.params && req.params.customerID){
 		console.log("Trying to get Sites of Customer:" + req.params.customerID);
 		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r1]-(region:Region)-[r2]-(site:Site)"
-			+ " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax";
+			+ " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax, site.siteID";
 	}else{
 		console.log("Trying to get all Sites");
 		query = "MATCH (site:Site)"
-		+ " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax";
+		+ " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax, site.siteID";
 	}
 
 	db.cypherQuery(query, function(err, node){
@@ -28,7 +28,8 @@ exports.all = function(req, res, cb){
 						zipcode: node.data[i][4],
 						state: node.data[i][5],
 						country: node.data[i][6],
-						fax: node.data[i][7]
+						fax: node.data[i][7],
+						siteID: node.data[i][8]
 				};
 				result[result.length] = item;
 			}
