@@ -46,7 +46,7 @@ router.post('/add', function(req, res){
 		zones.add(req, res, callback);
  	};
  	var func_add_relationship = function(zone, callback){
- 		zones.addRelationshipBetweenRegion(req, res, zone, callback);
+ 		zones.addRelationshipBetweenSite(req, res, zone, callback);
  	}
 	
  	var call_stack = [func_add_zone, func_add_relationship];
@@ -69,15 +69,6 @@ router.post('/add', function(req, res){
 })
 
 router.post('/edit/:uuid', function(req, res){
-//	zones.edit(req, res, function(err, node){
-//		if (err){
-//			console.log(err);
-//			
-//			res.json({status: err, message: node});
-//		}else{
-//			res.json({status: 0});
-//		}
-//	});
 	var func_edit_zone = function(callback){
 		zones.edit(req, res, callback);
 	}
@@ -90,7 +81,7 @@ router.post('/edit/:uuid', function(req, res){
 		}
 	}
 	var func_add_relationship = function(result, callback){
- 		zones.addRelationshipBetweenCustomer(req, res, res.zone, callback);
+ 		zones.addRelationshipBetweenSite(req, res, res.zone, callback);
  	}
 	
 	var call_stack = [func_edit_zone, func_del_relationships, func_add_relationship];
