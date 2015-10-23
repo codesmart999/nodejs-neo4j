@@ -178,7 +178,7 @@ exports.addRelationship = function(req, res, user, index, cb){
 		console.log("Trying to create relationships TO Zone with _id:", req.body.zone[index]);
 		
 		var query = "MATCH (user:User {userID:'" + user.userID + "'}),"
-			+ "(zone:Zone {zoneID:'" + zone.zoneID + "'})"
+			+ "(zone:Zone {zoneID:'" + req.body.zone[index] + "'})"
 			+ " CREATE (user)-[r:User_Zone]->(zone) RETURN r";
 
 		db.cypherQuery(query, cb);
