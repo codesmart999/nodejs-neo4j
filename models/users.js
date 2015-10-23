@@ -175,7 +175,7 @@ exports.addRelationship = function(req, res, user, index, cb){
 		if (req.body.module)
 			module_length = req.body.module.length;
 		console.log("Trying to create relationships FROM User:", user);
-		console.log("Trying to create relationships TO Zone with _id:", req.body.zone[index - module_length]);
+		console.log("Trying to create relationships TO ZoneID:", req.body.zone[index - module_length]);
 		
 		var query = "MATCH (user:User {userID:'" + user.userID + "'}),"
 			+ "(zone:Zone {zoneID:'" + req.body.zone[index - module_length] + "'})"
