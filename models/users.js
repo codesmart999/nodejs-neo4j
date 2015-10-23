@@ -153,22 +153,36 @@ exports.login = function(req, res, cb){
  * @node: Newly Inserted User
  * @cb: callback function
  */
-exports.addRelationship = function(req, res, user, module_index, cb){
-	console.log("Trying to create relationships FROM User:", user);
-	console.log("Trying to create relationships TO Module with _id:", req.body.module[module_index]);
-	
-	db.insertRelationship(
-			user._id,
-			req.body.module[module_index],
-			'User_Module',
-			{access: 'yes'},
-			function(err, relationship){
-				if (err)
-					return cb(err, "Failed to Create Relationship");
-				
-				cb(err, user, module_index + 1);
-			}
-	);
+exports.addRelationship = function(req, res, user, index, cb){
+	if (req.body.module && index < req.body.module.length){
+		console.log("Trying to create relationships FROM User:", user);
+		console.log("Trying to create relationships TO Module with _id:", req.body.module[index]);
+		
+		db.insertRelationship(
+				user._id,
+				req.body.module[index],
+				'User_Module',
+				{access: 'yes'},
+				function(err, relationship){
+					if (err)
+						return cb(err, "Failed to Create Relationship");
+					
+					cb(err, user, index + 1);
+				}
+		);
+	}else{
+		var module_length = 0;
+		if (req.body.module)
+			module_length = req.body.module.length;
+		console.log("Trying to create relationships FROM User:", user);
+		console.log("Trying to create relationships TO Zone with _id:", req.body.zone[index]);
+		
+		var query = "MATCH (user:User {userID:'" + user.userID + "'}),"
+			+ "(zone:Zone {zoneID:'" + zone.zoneID + "'})"
+			+ " CREATE (user)-[r:User_Zone]->(zone) RETURN r";
+
+		db.cypherQuery(query, cb);
+	}
 }
 
 exports.getRelationships = function(req, res, user, cb){

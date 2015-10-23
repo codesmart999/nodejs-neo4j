@@ -80,11 +80,17 @@ router.post('/add', function(req, res){
  	}
 	
  	var call_stack = [func_add_user];
+ 	var module_length = 0;
  	if (req.body.module && req.body.module.length > 0){
- 		var module_length = req.body.module.length;
+ 		module_length = req.body.module.length;
  		for (var i=0; i<module_length; i++)
  			call_stack[i + 1] = func_add_relationship;
  	}
+// 	if (req.body.zone && req.body.zone.length > 0){
+// 		var zone_length = req.body.zone.length;
+// 		for (var i=0; i<zone_length; i++)
+// 			call_stack[i + 1 + module_length] = func_add_relationship;
+// 	}
 	
  	async.waterfall(
 			call_stack,
