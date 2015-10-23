@@ -8,7 +8,7 @@ exports.all = function(req, res, cb){
 		console.log("Trying to get Zones of Customer:" + req.params.customerID);
 		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r1]-(region:Region)-[r2]-(site:Site)-[r3]-(zone:Zone)"
 			+ " RETURN zone.name, zone.zoneID";
-	}if (req.params && req.params.userID){
+	}else if (req.params && req.params.userID){
 		console.log("Trying to get Zones of User:" + req.params.userID);
 		query = "MATCH (user:User {userID:'" + req.params.userID + "'})-[r]-(zone:Zone)"
 			+ " RETURN zone.name, zone.zoneID";
