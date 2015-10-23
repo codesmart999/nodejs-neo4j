@@ -8,7 +8,10 @@ exports.all = function(req, res, cb){
 	db.listAllLabels(function(err, node){
 		console.log(node);
 		//db.readNodesWithLabel("User", cb);
-		db.readNodesWithLabelsAndProperties('User', {userRole: "User", valid: true}, cb);
+		if (req.params && req.params.customerID)
+			db.readNodesWithLabelsAndProperties('User', {userRole: "User", customerID:req.params.customerID, valid: true}, cb);
+		else
+			db.readNodesWithLabelsAndProperties('User', {userRole: "User", valid: true}, cb);
 	})
 }
 
