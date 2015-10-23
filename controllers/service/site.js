@@ -27,6 +27,18 @@ router.get('/customer/:customerID', function(req, res){
 	});
 })
 
+router.get('/user/:userID', function(req, res){
+	sites.all(req, res, function(err, node){
+		if (err){
+			console.log(err);
+			res.json({status: 401});
+		}else{
+			console.log(node);
+			res.json(node);
+		}
+	});
+})
+
 router.get('/:uuid', function(req, res){
 	sites.get(req, res, function(err, node){
 		if (err){

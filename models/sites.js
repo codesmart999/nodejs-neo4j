@@ -8,6 +8,10 @@ exports.all = function(req, res, cb){
 		console.log("Trying to get Sites of Customer:" + req.params.customerID);
 		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r1]-(region:Region)-[r2]-(site:Site)"
 			+ " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax, site.siteID";
+	}else if (req.params && req.params.userID){
+		console.log("Trying to get Sites of User:" + req.params.userID);
+		query = "MATCH (user:User {userID:'" + req.params.userID + "'})-[r]-(site:Site)"
+			+ " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax, site.siteID";
 	}else{
 		console.log("Trying to get all Sites");
 		query = "MATCH (site:Site)"
