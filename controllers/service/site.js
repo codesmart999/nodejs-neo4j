@@ -90,7 +90,7 @@ router.post('/edit/:uuid', function(req, res){
 		}
 	}
 	var func_add_relationship = function(result, callback){
- 		sites.addRelationshipBetweenCustomer(req, res, res.site, callback);
+ 		sites.addRelationshipBetweenRegion(req, res, res.site, callback);
  	}
 	
 	var call_stack = [func_edit_site, func_del_relationships, func_add_relationship];
