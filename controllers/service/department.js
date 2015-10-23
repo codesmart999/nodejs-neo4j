@@ -1,8 +1,21 @@
 var express = require('express')
 	, router = express.Router()
 	, departments = require('./../../models/departments')
+	, async = require('async');
 
 router.get('/', function(req, res){
+	departments.all(req, res, function(err, node){
+		if (err){
+			console.log(err);
+			res.json({status: 401});
+		}else{
+			console.log(node);
+			res.json(node);
+		}
+	});
+})
+
+router.get('/customer/:customerID', function(req, res){
 	departments.all(req, res, function(err, node){
 		if (err){
 			console.log(err);
@@ -29,27 +42,65 @@ router.get('/:uuid', function(req, res){
 })
 
 router.post('/add', function(req, res){
-	departments.add(req, res, function(err, node){
-		if (err){
-			console.log(err);
+	var func_add_department = function(callback){
+		departments.add(req, res, callback);
+ 	};
+ 	var func_add_relationship = function(department, callback){
+ 		departments.addRelationshipBetweenCustomer(req, res, department, callback);
+ 	}
+	
+ 	var call_stack = [func_add_department, func_add_relationship];
+	
+ 	async.waterfall(
+			call_stack,
 			
-			res.json({status: err, message: "Department Name already exists!"});
-		}else{
-			res.json({status: 0});
-		}
-	});
+			//if succeeds, result will hold information of the relationship.
+			function(err, result){
+				if (err){
+					console.log(err);
+					
+					res.json({status: err, message: result});
+				}else{
+					res.json({status: 0});
+				}
+				res.end();
+			}
+	);
 })
 
 router.post('/edit/:uuid', function(req, res){
-	departments.edit(req, res, function(err, node){
-		if (err){
-			console.log(err);
-			
-			res.json({status: err, message: node});
+	var func_edit_department = function(callback){
+		departments.edit(req, res, callback);
+	}
+	var func_del_relationships = function(node, callback){
+		if (node && node.length > 0){
+			res.department = node[0];
+			departments.delRelationships(req, res, callback);
 		}else{
-			res.json({status: 0});
+			callback("404", "Not Found");
 		}
-	});
+	}
+	var func_add_relationship = function(result, callback){
+ 		departments.addRelationshipBetweenCustomer(req, res, res.department, callback);
+ 	}
+	
+	var call_stack = [func_edit_department, func_del_relationships, func_add_relationship];
+ 	
+ 	async.waterfall(
+			call_stack,
+			
+			//if succeeds, result will hold information of the relationship.
+			function(err, result){
+				if (err){
+					console.log(err);
+					
+					res.json({status: err, message: result});
+				}else{
+					res.json({status: 0});
+				}
+				res.end();
+			}
+	);
 })
 
 router.delete('/:uuid', function(req, res){

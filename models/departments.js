@@ -3,20 +3,32 @@ var uuid = require('node-uuid');
 var crypto = require('crypto');
 
 exports.all = function(req, res, cb){
-	var query = "MATCH (department:Department), (customer:User)"
-				+ " WHERE department.customerID = customer.userID AND customer.valid=true"
-				+ " RETURN department.name AS name, customer.fullName AS customerName, department.departmentID as departmentID";
+//	db.listAllLabels(function(err, node){
+//		console.log(node);
+//		db.readNodesWithLabel("Department", cb);
+//	})
+	var query = "";
+	if (req.params && req.params.customerID){
+		console.log("Trying to get Departments of Customer:" + req.params.customerID);
+		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r]-(department:Department)"
+			+ " RETURN customer.fullName, department.departmentID, department.name, department.customerID";
+	}else{
+		console.log("Trying to get all Departments");
+		query = "MATCH (customer:User)-[r]-(department:Department)"
+		+ " RETURN customer.fullName, department.departmentID, department.name, department.customerID";
+	}
 
-	db.cypherQuery(query, function (err, node){
+	db.cypherQuery(query, function(err, node){
 		if (err)
 			return cb(err, node);
 		else{
 			var result = [];
 			for (var i=0; i<node.data.length; i++){
 				var item = {
-						name: node.data[i][0],
-						customerName: node.data[i][1],
-						departmentID: node.data[i][2],
+						customer: node.data[i][0],
+						departmentID: node.data[i][1],
+						name: node.data[i][2],
+						customerID: node.data[i][3]
 				};
 				result[result.length] = item;
 			}
@@ -44,7 +56,12 @@ exports.add = function(req, res, cb){
 		name: req.body.name,
 		customerID: req.body.customerID,
 		createdDTS: Date.now(),
-	}, 'Department', cb);
+	}, 'Department', function(err, node){
+		if (err)
+			return cb("401", "Department Name already exists!");
+		else
+			cb(err, node);
+	});
 }
 
 exports.edit = function(req, res, cb){
@@ -86,4 +103,42 @@ exports.del = function(req, res, cb){
 			});*/
 		}
 	});
+}
+
+/**
+ * Add Relationship between a customer and departments.
+ * 
+ * Parameters
+ * @req: req.body.module contains an array of module _ids
+ * @res:
+ * @node: Newly Inserted Customer
+ * @cb: callback function
+ */
+exports.addRelationshipBetweenCustomer = function(req, res, department, cb){
+	console.log("Trying to create relationships FROM Customer:", req.body.customerID);
+	console.log("Trying to create relationships TO Department:", department.departmentID);
+	
+//	db.insertRelationship(
+//			customer._id,
+//			req.body.module[module_index],
+//			'Customer_Department',
+//			{access: 'yes'},
+//			function(err, relationship){
+//				if (err)
+//					return cb(err, "Failed to Create Relationship");
+//				
+//				cb(err, customer, module_index + 1);
+//			}
+//	);
+	var query = "MATCH (customer:User {userID:'" + req.body.customerID + "'}),"
+		+ "(department:Department {departmentID:'" + department.departmentID + "'})"
+		+ " CREATE (customer)-[r:Customer_Department]->(department) RETURN r";
+
+	db.cypherQuery(query, cb);
+}
+
+exports.delRelationships = function(req, res, cb){
+	var query = "MATCH (department {departmentID: '" + req.params.uuid + "'})-[r]-() DELETE r";
+	console.log("Trying to delete Customer_Department relationships. Department ID:", req.params.uuid);
+	db.cypherQuery(query, cb);
 }
