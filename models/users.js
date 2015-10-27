@@ -196,7 +196,7 @@ exports.addRelationship = function(req, res, user, index, cb){
 exports.getRelationships = function(req, res, user, cb){
 	console.log("Trying to read module relationships FROM User:", user);
 	
-	var query = "MATCH (user:User {userID:'" + user.userID + "'})-[r:User_Module]-(module:Module) RETURN r";
+	var query = "MATCH (user:User {userID:'" + user.userID + "'})-[r:User_Module]-(module:Module) RETURN module";
 	
 	db.cypherQuery(query, cb);
 //	db.readRelationshipsOfNode(

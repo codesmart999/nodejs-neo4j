@@ -73,8 +73,12 @@ router.get('/:uuid', function(req, res){
 					var user = res.user;
 					user.module = [];
 					
-					for (var i=0; i<result.length; i++)
-						user.module[i] = result[i]._end;
+//					for (var i=0; i<result.length; i++)
+//						user.module[i] = result[i]._end;
+					if (result.data){
+						for (var i=0; i<result.data.length; i++)
+							user.module[i] = result.data[i]._id;
+					}
 					
 					res.json({status: 0, node: user});
 				}
