@@ -173,7 +173,7 @@ exports.addRelationship = function(req, res, user, index, cb){
 					cb(err, user, index + 1);
 				}
 		);
-	}else if (req.body.site && index < req.body.site.length){
+	}else{
 		var module_length = 0;
 		if (req.body.module)
 			module_length = req.body.module.length;
