@@ -19,5 +19,6 @@ router.use('/zonetype', require('./../controllers/service/zonetype'))
 router.use('/site', require('./../controllers/service/site'))
 router.use('/zone', require('./../controllers/service/zone'))
 router.use('/producttype', require('./../controllers/service/producttype'))
+router.use('/zpl', require('./../controllers/service/zpl'))
 
 module.exports = router;
