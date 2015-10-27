@@ -139,17 +139,17 @@ router.post('/edit/:uuid', function(req, res){
 	
 	var call_stack = [func_edit_user, func_del_access_modules];
  	
- 	var module_length = 0;
- 	if (req.body.module && req.body.module.length > 0){
- 		module_length = req.body.module.length;
- 		for (var i=0; i<module_length; i++)
- 			call_stack[i + 2] = func_add_relationship;
- 	}
- 	if (req.body.site && req.body.site.length > 0){
- 		var site_length = req.body.site.length;
- 		for (var i=0; i<site_length; i++)
- 			call_stack[i + 2 + module_length] = func_add_relationship;
- 	}
+// 	var module_length = 0;
+// 	if (req.body.module && req.body.module.length > 0){
+// 		module_length = req.body.module.length;
+// 		for (var i=0; i<module_length; i++)
+// 			call_stack[i + 2] = func_add_relationship;
+// 	}
+// 	if (req.body.site && req.body.site.length > 0){
+// 		var site_length = req.body.site.length;
+// 		for (var i=0; i<site_length; i++)
+// 			call_stack[i + 2 + module_length] = func_add_relationship;
+// 	}
  	
  	async.waterfall(
 			call_stack,

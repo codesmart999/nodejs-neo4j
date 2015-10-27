@@ -213,7 +213,7 @@ exports.getRelationships = function(req, res, user, cb){
 
 exports.delRelationships = function(req, res, user, cb){
 	var query = "MATCH (user {userID: '" + user.userID + "'})-[r]-() DELETE r";
-	console.log("Trying to delete Module Accesses:", user);
+	console.log("Trying to delete User's relationships:", user);
 	db.cypherQuery(query, function(err, result){
 		cb(err, user, 0);
 	});
