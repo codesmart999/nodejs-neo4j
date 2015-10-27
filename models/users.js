@@ -194,16 +194,19 @@ exports.addRelationship = function(req, res, user, index, cb){
 }
 
 exports.getRelationships = function(req, res, user, cb){
-	console.log("Trying to read relationships FROM User:", user);
+	console.log("Trying to read module relationships FROM User:", user);
 	
-	db.readRelationshipsOfNode(
-			user._id,
-			{
-				type: ['User_Module'],
-				direction: 'out',
-			},
-			cb
-	);
+	var query = "MATCH (user:User {userID:'" + user.userID + "'})-[r:User_Module]-(module:Module)";
+	
+	db.cypherQuery(query, cb);
+//	db.readRelationshipsOfNode(
+//			user._id,
+//			{
+//				type: ['User_Module'],
+//				direction: 'out',
+//			},
+//			cb
+//	);
 //	var query = "MATCH (user {userID: '" + user.userID + "'})-[r]-(module) RETURN module";
 //	
 //	console.log("Trying to read relationships FROM User:", user);
