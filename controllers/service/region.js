@@ -1,10 +1,10 @@
 var express = require('express')
 	, router = express.Router()
-	, products = require('./../../models/products')
+	, regions = require('./../../models/regions')
 	, async = require('async');
 
 router.get('/', function(req, res){
-	products.all(req, res, function(err, node){
+	regions.all(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			res.json({status: 401});
@@ -16,7 +16,7 @@ router.get('/', function(req, res){
 })
 
 router.get('/customer/:customerID', function(req, res){
-	products.all(req, res, function(err, node){
+	regions.all(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			res.json({status: 401});
@@ -28,7 +28,7 @@ router.get('/customer/:customerID', function(req, res){
 })
 
 router.get('/:uuid', function(req, res){
-	products.get(req, res, function(err, node){
+	regions.get(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			
@@ -42,14 +42,14 @@ router.get('/:uuid', function(req, res){
 })
 
 router.post('/add', function(req, res){
-	var func_add_product = function(callback){
-		products.add(req, res, callback);
+	var func_add_region = function(callback){
+		regions.add(req, res, callback);
  	};
- 	var func_add_relationship = function(product, callback){
- 		products.addRelationshipBetweenCustomer(req, res, product, callback);
+ 	var func_add_relationship = function(region, callback){
+ 		regions.addRelationshipBetweenCustomer(req, res, region, callback);
  	}
 	
- 	var call_stack = [func_add_product, func_add_relationship];
+ 	var call_stack = [func_add_region, func_add_relationship];
 	
  	async.waterfall(
 			call_stack,
@@ -69,22 +69,22 @@ router.post('/add', function(req, res){
 })
 
 router.post('/edit/:uuid', function(req, res){
-	var func_edit_product = function(callback){
-		products.edit(req, res, callback);
+	var func_edit_region = function(callback){
+		regions.edit(req, res, callback);
 	}
 	var func_del_relationships = function(node, callback){
 		if (node && node.length > 0){
-			res.product = node[0];
-			products.delRelationships(req, res, callback);
+			res.region = node[0];
+			regions.delRelationships(req, res, callback);
 		}else{
 			callback("404", "Not Found");
 		}
 	}
 	var func_add_relationship = function(result, callback){
- 		products.addRelationshipBetweenCustomer(req, res, res.product, callback);
+ 		regions.addRelationshipBetweenCustomer(req, res, res.region, callback);
  	}
 	
-	var call_stack = [func_edit_product, func_del_relationships, func_add_relationship];
+	var call_stack = [func_edit_region, func_del_relationships, func_add_relationship];
  	
  	async.waterfall(
 			call_stack,
@@ -104,7 +104,7 @@ router.post('/edit/:uuid', function(req, res){
 })
 
 router.delete('/:uuid', function(req, res){
-	products.del(req, res, function(err, node){
+	regions.del(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			
@@ -117,7 +117,7 @@ router.delete('/:uuid', function(req, res){
 })
 
 router.get('/del/:uuid', function(req, res){
-	products.del(req, res, function(err, node){
+	regions.del(req, res, function(err, node){
 		if (err){
 			console.log(err);
 			
