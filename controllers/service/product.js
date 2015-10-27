@@ -90,13 +90,14 @@ router.post('/edit/:uuid', function(req, res){
 		}
 	}
 	var func_add_relationship_customer = function(product, callback){
+		res.product = product;
  		products.addRelationshipBetweenCustomer(req, res, product, callback);
  	}
  	var func_add_relationship_producttype = function(product, callback){
- 		products.addRelationshipBetweenProducttype(req, res, product, callback);
+ 		products.addRelationshipBetweenProducttype(req, res, res.product, callback);
  	}
  	var func_add_relationship_department = function(product, callback){
- 		products.addRelationshipBetweenDepartment(req, res, product, callback);
+ 		products.addRelationshipBetweenDepartment(req, res, res.product, callback);
  	}
 	
 	var call_stack = [func_edit_product,

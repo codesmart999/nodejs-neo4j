@@ -121,15 +121,6 @@ exports.del = function(req, res, cb){
 		else{
 			query = "MATCH (n {productID: '" + req.params.uuid + "'}) DELETE n";
 			db.cypherQuery(query, cb);
-			/*db.deleteNodesWithLabelsAndProperties('Product', {productID:req.params.uuid}, function(err, node){
-				if (err)
-					return cb(err, "Failed in deleting Product");
-				if (node === true){
-					return cb(err, node);
-				}else {
-					return cb("401", "Failed in deleting Product due to existing relationships");
-				}
-			});*/
 		}
 	});
 }

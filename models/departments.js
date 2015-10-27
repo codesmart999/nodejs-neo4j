@@ -118,18 +118,6 @@ exports.addRelationshipBetweenCustomer = function(req, res, department, cb){
 	console.log("Trying to create relationships FROM Customer:", req.body.customerID);
 	console.log("Trying to create relationships TO Department:", department.departmentID);
 	
-//	db.insertRelationship(
-//			customer._id,
-//			req.body.module[module_index],
-//			'Customer_Department',
-//			{access: 'yes'},
-//			function(err, relationship){
-//				if (err)
-//					return cb(err, "Failed to Create Relationship");
-//				
-//				cb(err, customer, module_index + 1);
-//			}
-//	);
 	var query = "MATCH (customer:User {userID:'" + req.body.customerID + "'}),"
 		+ "(department:Department {departmentID:'" + department.departmentID + "'})"
 		+ " CREATE (customer)-[r:Customer_Department]->(department) RETURN r";
