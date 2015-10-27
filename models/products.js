@@ -14,8 +14,8 @@ exports.all = function(req, res, cb){
 			+ " RETURN customer.fullName, product.productID, product.manager, product.name, product.customerID";
 	}else{
 		console.log("Trying to get all Products");
-		query = "MATCH (customer:User)-[r]-(product:Product)"
-		+ " RETURN customer.fullName, product.productID, product.manager, product.name, product.customerID";
+		query = "MATCH (product:Product)"
+		+ " RETURN product.productID, product.manager, product.name, product.customerID";
 	}
 
 	db.cypherQuery(query, function(err, node){
