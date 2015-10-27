@@ -151,6 +151,8 @@ router.post('/edit/:uuid', function(req, res){
  			call_stack[i + 2 + module_length] = func_add_relationship;
  	}
  	
+ 	console.log(call_stack.length);
+ 	
  	async.waterfall(
 			call_stack,
 			
