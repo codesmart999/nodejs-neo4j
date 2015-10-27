@@ -45,11 +45,20 @@ router.post('/add', function(req, res){
 	var func_add_product = function(callback){
 		products.add(req, res, callback);
  	};
- 	var func_add_relationship = function(product, callback){
+ 	var func_add_relationship_customer = function(product, callback){
  		products.addRelationshipBetweenCustomer(req, res, product, callback);
  	}
+ 	var func_add_relationship_producttype = function(product, callback){
+ 		products.addRelationshipBetweenProducttype(req, res, product, callback);
+ 	}
+ 	var func_add_relationship_department = function(product, callback){
+ 		products.addRelationshipBetweenDepartment(req, res, product, callback);
+ 	}
 	
- 	var call_stack = [func_add_product, func_add_relationship];
+ 	var call_stack = [func_add_product,
+ 	                  func_add_relationship_customer,
+ 	                  func_add_relationship_producttype,
+ 	                  func_add_relationship_department];
 	
  	async.waterfall(
 			call_stack,
@@ -80,11 +89,21 @@ router.post('/edit/:uuid', function(req, res){
 			callback("404", "Not Found");
 		}
 	}
-	var func_add_relationship = function(result, callback){
- 		products.addRelationshipBetweenCustomer(req, res, res.product, callback);
+	var func_add_relationship_customer = function(product, callback){
+ 		products.addRelationshipBetweenCustomer(req, res, product, callback);
+ 	}
+ 	var func_add_relationship_producttype = function(product, callback){
+ 		products.addRelationshipBetweenProducttype(req, res, product, callback);
+ 	}
+ 	var func_add_relationship_department = function(product, callback){
+ 		products.addRelationshipBetweenDepartment(req, res, product, callback);
  	}
 	
-	var call_stack = [func_edit_product, func_del_relationships, func_add_relationship];
+	var call_stack = [func_edit_product,
+	                  func_del_relationships,
+	                  func_add_relationship_customer,
+	                  func_add_relationship_producttype,
+	                  func_add_relationship_department];
  	
  	async.waterfall(
 			call_stack,
