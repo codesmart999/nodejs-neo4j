@@ -98,9 +98,9 @@ router.post('/add', function(req, res){
  		for (var i=0; i<module_length; i++)
  			call_stack[i + 1] = func_add_relationship;
  	}
- 	if (req.body.zone && req.body.zone.length > 0){
- 		var zone_length = req.body.zone.length;
- 		for (var i=0; i<zone_length; i++)
+ 	if (req.body.site && req.body.site.length > 0){
+ 		var site_length = req.body.site.length;
+ 		for (var i=0; i<site_length; i++)
  			call_stack[i + 1 + module_length] = func_add_relationship;
  	}
 	
@@ -145,9 +145,9 @@ router.post('/edit/:uuid', function(req, res){
  		for (var i=0; i<module_length; i++)
  			call_stack[i + 2] = func_add_relationship;
  	}
- 	if (req.body.zone && req.body.zone.length > 0){
- 		var zone_length = req.body.zone.length;
- 		for (var i=0; i<zone_length; i++)
+ 	if (req.body.site && req.body.site.length > 0){
+ 		var site_length = req.body.site.length;
+ 		for (var i=0; i<site_length; i++)
  			call_stack[i + 2 + module_length] = func_add_relationship;
  	}
  	
