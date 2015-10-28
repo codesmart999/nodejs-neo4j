@@ -46,13 +46,14 @@ router.post('/add', function(req, res){
 		products.add(req, res, callback);
  	};
  	var func_add_relationship_customer = function(product, callback){
+ 		res.product = product;
  		products.addRelationshipBetweenCustomer(req, res, product, callback);
  	}
- 	var func_add_relationship_producttype = function(product, callback){
- 		products.addRelationshipBetweenProducttype(req, res, product, callback);
+ 	var func_add_relationship_producttype = function(callback){
+ 		products.addRelationshipBetweenProducttype(req, res, res.product, callback);
  	}
- 	var func_add_relationship_department = function(product, callback){
- 		products.addRelationshipBetweenDepartment(req, res, product, callback);
+ 	var func_add_relationship_department = function(callback){
+ 		products.addRelationshipBetweenDepartment(req, res, res.product, callback);
  	}
 	
  	var call_stack = [func_add_product,
