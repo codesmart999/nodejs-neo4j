@@ -49,10 +49,10 @@ router.post('/add', function(req, res){
  		res.product = product;
  		products.addRelationshipBetweenCustomer(req, res, product, callback);
  	}
- 	var func_add_relationship_producttype = function(callback){
+ 	var func_add_relationship_producttype = function(result, callback){
  		products.addRelationshipBetweenProducttype(req, res, res.product, callback);
  	}
- 	var func_add_relationship_department = function(callback){
+ 	var func_add_relationship_department = function(result, callback){
  		products.addRelationshipBetweenDepartment(req, res, res.product, callback);
  	}
 	
