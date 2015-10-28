@@ -55,8 +55,7 @@ exports.add = function(req, res, cb){
 		zplID: _uuid,
 		name: req.body.name,
 		quantity: req.body.quantity,
-		customerID: req.body.customerID,
-		createdDTS: Date.now(),
+		zpl: req.body.zpl,
 	}, 'ZPL', function(err, node){
 		if (err)
 			return cb("401", "ZPL Name already exists!");
@@ -74,7 +73,7 @@ exports.edit = function(req, res, cb){
 	if (req.body.name)
 		data.name = req.body.name;
 	if (req.body.zpl)
-		data.name = req.body.zpl;
+		data.zpl = req.body.zpl;
 	if (req.body.customerID)
 		data.customerID = req.body.customerID;
 
