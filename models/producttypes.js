@@ -11,11 +11,11 @@ exports.all = function(req, res, cb){
 	if (req.params && req.params.customerID){
 		console.log("Trying to get Producttypes of Customer:" + req.params.customerID);
 		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r]-(producttype:Producttype)"
-			+ " RETURN customer.fullName, producttype.producttypeID, producttype.name, producttype.customerID";
+			+ " RETURN customer.fullName, producttype.producttypeID, producttype.name, producttype.customerID, producttype.quantity";
 	}else{
 		console.log("Trying to get all Producttypes");
 		query = "MATCH (customer:User)-[r]-(producttype:Producttype)"
-		+ " RETURN customer.fullName, producttype.producttypeID, producttype.name, producttype.customerID";
+		+ " RETURN customer.fullName, producttype.producttypeID, producttype.name, producttype.customerID, producttype.quantity";
 	}
 
 	db.cypherQuery(query, function(err, node){
@@ -28,7 +28,8 @@ exports.all = function(req, res, cb){
 						customer: node.data[i][0],
 						producttypeID: node.data[i][1],
 						name: node.data[i][2],
-						customerID: node.data[i][3]
+						customerID: node.data[i][3],
+						quantity: node.data[i][4]
 				};
 				result[result.length] = item;
 			}
