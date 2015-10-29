@@ -21,5 +21,6 @@ router.use('/zone', require('./../controllers/service/zone'))
 router.use('/producttype', require('./../controllers/service/producttype'))
 router.use('/zpl', require('./../controllers/service/zpl'))
 router.use('/product', require('./../controllers/service/product'))
+router.use('/gun', require('./../controllers/service/gun'))
 
 module.exports = router;
