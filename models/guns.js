@@ -144,10 +144,10 @@ exports.del = function(req, res, cb){
  * @cb: callback function
  */
 exports.addRelationshipBetweenCustomer = function(req, res, gun, cb){
-	console.log("Trying to create relationships FROM Customer:", req.body.customerID);
+	console.log("Trying to create relationships FROM Customer:", req.body.customer[req.customer_index]);
 	console.log("Trying to create relationships TO Gun:", gun.gunID);
 	
-	var query = "MATCH (customer:User {userID:'" + req.body.customerID + "'}),"
+	var query = "MATCH (customer:User {userID:'" + req.body.customer[req.customer_index] + "'}),"
 		+ "(gun:Gun {gunID:'" + gun.gunID + "'})"
 		+ " CREATE (customer)-[r:Customer_Gun]->(gun) RETURN r";
 
