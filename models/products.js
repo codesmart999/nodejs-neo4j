@@ -11,11 +11,11 @@ exports.all = function(req, res, cb){
 	if (req.params && req.params.customerID){
 		console.log("Trying to get Products of Customer:" + req.params.customerID);
 		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r1]-(product:Product), (producttype:Producttype)-[r2]-(product:Product), (department:Department)-[r3]-(product:Product)"
-			+ " RETURN customer.fullName, producttype.name, department.name, product.productID, product.number, product.customerID";
+			+ " RETURN customer.fullName, producttype.name, department.name, product.productID, product.number, product.customerID, product.upc, product.style, product.color, product.size, product.min_floor, product.max_floor, product.quantity";
 	}else{
 		console.log("Trying to get all Products");
 		query = "MATCH (customer:User)-[r1]-(product:Product), (producttype:Producttype)-[r2]-(product:Product), (department:Department)-[r3]-(product:Product)"
-		+ " RETURN customer.fullName, producttype.name, department.name, product.productID, product.number, product.customerID";
+		+ " RETURN customer.fullName, producttype.name, department.name, product.productID, product.number, product.customerID, product.upc, product.style, product.color, product.size, product.min_floor, product.max_floor, product.quantity";
 	}
 
 	db.cypherQuery(query, function(err, node){
@@ -30,7 +30,14 @@ exports.all = function(req, res, cb){
 						department: node.data[i][2],
 						productID: node.data[i][3],
 						number: node.data[i][4],
-						customerID: node.data[i][5]
+						customerID: node.data[i][5],
+						upc: node.data[i][6],
+						style: node.data[i][7],
+						color: node.data[i][8],
+						size: node.data[i][9],
+						min_floor: node.data[i][10],
+						max_floor: node.data[i][11],
+						quantity: node.data[i][12]
 				};
 				result[result.length] = item;
 			}
