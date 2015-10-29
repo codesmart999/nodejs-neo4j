@@ -68,10 +68,9 @@ exports.add = function(req, res, cb){
 		userReceive: req.body.userReceive,
 		customerID: req.body.customer[req.customer_index]
 	}, 'Gun', function(err, node){
-		if (err){
-			console.log(err);
+		if (err)
 			return cb("401", node);
-		}else
+		else
 			cb(err, node);
 	});
 }
@@ -114,12 +113,7 @@ exports.edit = function(req, res, cb){
 		data.customerID = req.body.customerID;
 
 	console.log("Trying to edit Gun:" + req.params.uuid, data);
-	db.updateNodesWithLabelsAndProperties('Gun', {gunID:req.params.uuid}, data, function(err, result){
-		if (err || req.customer_index >= req.body.customer.length - 1)
-			return cb(err, result);
-		else
-			return cb(err);
-	});
+	db.updateNodesWithLabelsAndProperties('Gun', {gunID:req.params.uuid}, data, cb);
 }
 
 exports.del = function(req, res, cb){
@@ -157,7 +151,12 @@ exports.addRelationshipBetweenCustomer = function(req, res, gun, cb){
 		+ "(gun:Gun {gunID:'" + gun.gunID + "'})"
 		+ " CREATE (customer)-[r:Customer_Gun]->(gun) RETURN r";
 
-	db.cypherQuery(query, cb);
+	db.cypherQuery(query, function(err, result){
+		if (err || req.customer_index >= req.body.customer.length - 1)
+			return cb(err, result);
+		else
+			return cb(err);
+	});
 }
 
 exports.delRelationships = function(req, res, cb){
