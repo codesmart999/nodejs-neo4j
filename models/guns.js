@@ -68,9 +68,10 @@ exports.add = function(req, res, cb){
 		userReceive: req.body.userReceive,
 		customerID: req.body.customer[req.customer_index]
 	}, 'Gun', function(err, node){
-		if (err)
+		if (err){
+			console.log(err);
 			return cb("401", node);
-		else
+		}else
 			cb(err, node);
 	});
 }
