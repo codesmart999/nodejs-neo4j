@@ -114,7 +114,12 @@ exports.edit = function(req, res, cb){
 		data.customerID = req.body.customerID;
 
 	console.log("Trying to edit Gun:" + req.params.uuid, data);
-	db.updateNodesWithLabelsAndProperties('Gun', {gunID:req.params.uuid}, data, cb);
+	db.updateNodesWithLabelsAndProperties('Gun', {gunID:req.params.uuid}, data, function(err, result){
+		if (err || req.customer_index >= req.body.customer.length - 1)
+			return cb(err, result);
+		else
+			return cb(err);
+	});
 }
 
 exports.del = function(req, res, cb){
