@@ -69,7 +69,7 @@ exports.add = function(req, res, cb){
 		customerID: req.body.customer[req.customer_index]
 	}, 'Gun', function(err, node){
 		if (err)
-			return cb("401", "Gun Name already exists!");
+			return cb("401", node);
 		else
 			cb(err, node);
 	});
