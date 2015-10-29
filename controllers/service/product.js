@@ -80,7 +80,8 @@ router.post('/add', function(req, res){
 
 router.post('/import', function(req, res){
 	var body_params = req.body;
-	var res.product_index = -1, res.product_count = body_params.length;
+	
+	res.product_index = -1, res.product_count = body_params.length;
 	
 	var func_add_product = function(callback){
 		res.product_index++;
