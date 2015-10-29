@@ -80,11 +80,11 @@ router.post('/add', function(req, res){
 
 router.post('/import', function(req, res){
 	var body_params = req.body;
-	var req.product_index = -1, req.product_count = body_params.length;
+	var res.product_index = -1, res.product_count = body_params.length;
 	
 	var func_add_product = function(callback){
-		req.product_index++;
-		req.body = body_params[req.product_index];
+		res.product_index++;
+		req.body = body_params[res.product_index];
 		products.add(req, res, callback);
  	};
  	var func_add_relationship_customer = function(product, callback){

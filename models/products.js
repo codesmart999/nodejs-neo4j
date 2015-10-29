@@ -202,7 +202,7 @@ exports.addRelationshipBetweenDepartmentName = function(req, res, product, cb){
 		+ " CREATE (department)-[r:Department_Product]->(product) RETURN r";
 
 	db.cypherQuery(query, function(err, result){
-		if (err || req.product_index >= req.product_count - 1)
+		if (err || res.product_index >= res.product_count - 1)
 			return cb(err, result);
 		else
 			return cb(err);
