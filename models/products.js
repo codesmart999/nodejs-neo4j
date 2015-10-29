@@ -177,7 +177,7 @@ exports.addRelationshipBetweenCustomerName = function(req, res, product, cb){
 	console.log("Trying to create relationships FROM Customer:", req.body.customer);
 	console.log("Trying to create relationships TO Product:", product.productID);
 	
-	var query = "MATCH (customer:User {userName:'" + req.body.customer + "'}),"
+	var query = "MATCH (customer:User {fullName:'" + req.body.customer + "'}),"
 		+ "(product:Product {productID:'" + product.productID + "'})"
 		+ " CREATE (customer)-[r:Customer_Product]->(product) RETURN r";
 
