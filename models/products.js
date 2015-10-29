@@ -148,7 +148,7 @@ exports.addRelationshipBetweenCustomer = function(req, res, product, cb){
 	
 	var query = "MATCH (customer:User {userID:'" + req.body.customerID + "'}),"
 		+ "(product:Product {productID:'" + product.productID + "'})"
-		+ " CREATE (customer)-[r:Customer_Product]->(product) SET product.customerID = customer.userID RETURN r";
+		+ " CREATE (customer)-[r:Customer_Product]->(product) RETURN r";
 
 	db.cypherQuery(query, cb);
 }
@@ -158,7 +158,7 @@ exports.addRelationshipBetweenProducttype = function(req, res, product, cb){
 	
 	var query = "MATCH (producttype:Producttype {producttypeID:'" + req.body.producttypeID + "'}),"
 		+ "(product:Product {productID:'" + product.productID + "'})"
-		+ " CREATE (producttype)-[r:Producttype_Product]->(product) SET product.producttypeID = producttype.producttypeID RETURN r";
+		+ " CREATE (producttype)-[r:Producttype_Product]->(product) RETURN r";
 
 	db.cypherQuery(query, cb);
 }
@@ -168,7 +168,7 @@ exports.addRelationshipBetweenDepartment = function(req, res, product, cb){
 	
 	var query = "MATCH (department:Department {departmentID:'" + req.body.departmentID + "'}),"
 		+ "(product:Product {productID:'" + product.productID + "'})"
-		+ " CREATE (department)-[r:Department_Product]->(product) SET product.departmentID = department.departmentID RETURN r";
+		+ " CREATE (department)-[r:Department_Product]->(product) RETURN r";
 
 	db.cypherQuery(query, cb);
 }
@@ -179,7 +179,7 @@ exports.addRelationshipBetweenCustomerName = function(req, res, product, cb){
 	
 	var query = "MATCH (customer:User {valid:true, fullName:'" + req.body.customer + "'}),"
 		+ "(product:Product {productID:'" + product.productID + "'})"
-		+ " CREATE (customer)-[r:Customer_Product]->(product) RETURN r";
+		+ " CREATE (customer)-[r:Customer_Product]->(product) SET product.customerID = customer.userID RETURN r";
 
 	db.cypherQuery(query, cb);
 }
@@ -189,7 +189,7 @@ exports.addRelationshipBetweenProducttypeName = function(req, res, product, cb){
 	
 	var query = "MATCH (producttype:Producttype {name:'" + req.body.producttype + "'}),"
 		+ "(product:Product {productID:'" + product.productID + "'})"
-		+ " CREATE (producttype)-[r:Producttype_Product]->(product) RETURN r";
+		+ " CREATE (producttype)-[r:Producttype_Product]->(product) SET product.producttypeID = producttype.producttypeID RETURN r";
 
 	db.cypherQuery(query, cb);
 }
@@ -199,7 +199,7 @@ exports.addRelationshipBetweenDepartmentName = function(req, res, product, cb){
 	
 	var query = "MATCH (department:Department {name:'" + req.body.department + "'}),"
 		+ "(product:Product {productID:'" + product.productID + "'})"
-		+ " CREATE (department)-[r:Department_Product]->(product) RETURN r";
+		+ " CREATE (department)-[r:Department_Product]->(product) SET product.departmentID = department.departmentID RETURN r";
 
 	db.cypherQuery(query, function(err, result){
 		if (err || res.product_index >= res.product_count - 1)
