@@ -11,11 +11,11 @@ exports.all = function(req, res, cb){
 	if (req.params && req.params.customerID){
 		console.log("Trying to get Products of Customer:" + req.params.customerID);
 		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r1]-(product:Product), (producttype:Producttype)-[r2]-(product:Product), (department:Department)-[r3]-(product:Product)"
-			+ " RETURN customer.fullName, producttype.name, department.name, product.productID, product.number, product.customerID, product.upc, product.style, product.color, product.size, product.min_floor, product.max_floor, product.quantity";
+			+ " RETURN customer.fullName, producttype.name, department.name, product.productID, product.number, customer.userID, product.upc, product.style, product.color, product.size, product.min_floor, product.max_floor, product.quantity";
 	}else{
 		console.log("Trying to get all Products");
 		query = "MATCH (customer:User)-[r1]-(product:Product), (producttype:Producttype)-[r2]-(product:Product), (department:Department)-[r3]-(product:Product)"
-		+ " RETURN customer.fullName, producttype.name, department.name, product.productID, product.number, product.customerID, product.upc, product.style, product.color, product.size, product.min_floor, product.max_floor, product.quantity";
+		+ " RETURN customer.fullName, producttype.name, department.name, product.productID, product.number, customer.userID, product.upc, product.style, product.color, product.size, product.min_floor, product.max_floor, product.quantity";
 	}
 
 	db.cypherQuery(query, function(err, node){
@@ -171,6 +171,42 @@ exports.addRelationshipBetweenDepartment = function(req, res, product, cb){
 		+ " CREATE (department)-[r:Department_Product]->(product) RETURN r";
 
 	db.cypherQuery(query, cb);
+}
+
+exports.addRelationshipBetweenCustomerName = function(req, res, product, cb){
+	console.log("Trying to create relationships FROM Customer:", req.body.customer);
+	console.log("Trying to create relationships TO Product:", product.productID);
+	
+	var query = "MATCH (customer:User {userName:'" + req.body.customer + "'}),"
+		+ "(product:Product {productID:'" + product.productID + "'})"
+		+ " CREATE (customer)-[r:Customer_Product]->(product) RETURN r";
+
+	db.cypherQuery(query, cb);
+}
+exports.addRelationshipBetweenProducttypeName = function(req, res, product, cb){
+	console.log("Trying to create relationships FROM Producttype:", req.body.producttype);
+	console.log("Trying to create relationships TO Product:", product.productID);
+	
+	var query = "MATCH (producttype:Producttype {name:'" + req.body.producttype + "'}),"
+		+ "(product:Product {productID:'" + product.productID + "'})"
+		+ " CREATE (producttype)-[r:Producttype_Product]->(product) RETURN r";
+
+	db.cypherQuery(query, cb);
+}
+exports.addRelationshipBetweenDepartmentName = function(req, res, product, cb){
+	console.log("Trying to create relationships FROM Department:", req.body.department);
+	console.log("Trying to create relationships TO Product:", product.productID);
+	
+	var query = "MATCH (department:Department {name:'" + req.body.department + "'}),"
+		+ "(product:Product {productID:'" + product.productID + "'})"
+		+ " CREATE (department)-[r:Department_Product]->(product) RETURN r";
+
+	db.cypherQuery(query, function(err, result){
+		if (err || req.product_index >= req.product_count - 1)
+			return cb(err, result);
+		else
+			return cb(err);
+	});
 }
 
 exports.delRelationships = function(req, res, cb){

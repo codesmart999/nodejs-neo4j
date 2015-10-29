@@ -79,9 +79,50 @@ router.post('/add', function(req, res){
 })
 
 router.post('/import', function(req, res){
-	var product_index = -1;
-	console.log(req.body);
-	res.end();
+	var body_params = req.body;
+	var req.product_index = -1, req.product_count = body_params.length;
+	
+	var func_add_product = function(callback){
+		req.product_index++;
+		req.body = body_params[req.product_index];
+		products.add(req, res, callback);
+ 	};
+ 	var func_add_relationship_customer = function(product, callback){
+ 		res.product = product;
+ 		products.addRelationshipBetweenCustomerName(req, res, product, callback);
+ 	}
+ 	var func_add_relationship_producttype = function(result, callback){
+ 		products.addRelationshipBetweenProducttypeName(req, res, res.product, callback);
+ 	}
+ 	var func_add_relationship_department = function(result, callback){
+ 		products.addRelationshipBetweenDepartmentName(req, res, res.product, callback);
+ 	}
+ 	
+ 	var call_stack = [];
+ 	if (req.body && req.body.length > 0){
+ 		for (var i=0; i<req.body.length; i++){
+ 			call_stack[i*4] = func_add_product;
+ 			call_stack[i*4 + 1] = func_add_relationship_customer;
+ 			call_stack[i*4 + 2] = func_add_relationship_producttype;
+ 			call_stack[i*4 + 3] = func_add_relationship_department;
+ 		}
+ 	}
+ 	
+ 	async.waterfall(
+			call_stack,
+			
+			//if succeeds, result will hold information of the relationship.
+			function(err, result){
+				if (err){
+					console.log(err);
+					
+					res.json({status: err, message: result});
+				}else{
+					res.json({status: 0});
+				}
+				res.end();
+			}
+	);
 })
 
 router.post('/edit/:uuid', function(req, res){
