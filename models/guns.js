@@ -130,7 +130,11 @@ exports.del = function(req, res, cb){
 	if (!req.params.uuid){
 		return cb("404", "UUID Missing");
 	}
-	var query = "MATCH (n {gunID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
+	var query = "";
+	if (req.isCustomer)
+		query = "MATCH (n {gunID: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
+	else
+		query = "MATCH (n {guid: '" + req.params.uuid + "'})-[r]-() DELETE n,r";
 	console.log("Trying to delete Gun:", req.params.uuid);
 
 	db.cypherQuery(query, function(err, node){

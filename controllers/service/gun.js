@@ -149,6 +149,7 @@ router.post('/edit/:uuid', function(req, res){
 })
 
 router.delete('/:uuid', function(req, res){
+	req.isCustomer = false;
 	guns.del(req, res, function(err, node){
 		if (err){
 			console.log(err);
@@ -162,6 +163,35 @@ router.delete('/:uuid', function(req, res){
 })
 
 router.get('/del/:uuid', function(req, res){
+	req.isCustomer = false;
+	guns.del(req, res, function(err, node){
+		if (err){
+			console.log(err);
+			
+			res.json({status: err, message: node});
+		}else{
+			//node deleted
+			res.json({status: 0})
+		}
+	})
+})
+
+router.delete('/customer/:uuid', function(req, res){
+	req.isCustomer = true;
+	guns.del(req, res, function(err, node){
+		if (err){
+			console.log(err);
+			
+			res.json({status: err, message: node});
+		}else{
+			//node deleted
+			res.json({status: 0})
+		}
+	})
+})
+
+router.get('/del/customer/:uuid', function(req, res){
+	req.isCustomer = true;
 	guns.del(req, res, function(err, node){
 		if (err){
 			console.log(err);
