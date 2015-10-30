@@ -80,7 +80,7 @@ router.post('/add', function(req, res){
 })
 
 router.post('/edit/:uuid', function(req, res){
-	req.customer_index = -1;
+	req.customer_index = -1, del_index = -1;
 	var func_add_gun = function(callback){
 		req.customer_index++;
 		guns.add(req, res, callback);
@@ -89,8 +89,12 @@ router.post('/edit/:uuid', function(req, res){
  		guns.addRelationshipBetweenCustomer(req, res, gun, callback);
  	}
  	var func_del_relationship = function(result, callback){
- 		guns.delRelationships(req, res, callback);
+ 		del_index++;
+ 		guns.delRelationships(req, res, req.body.del_customer[del_index], callback);
  	}
+ 	var func_edit_gun = function(callback){
+		guns.edit(req, res, callback);
+	}
  	
  	var call_stack = [];
 	
@@ -108,36 +112,10 @@ router.post('/edit/:uuid', function(req, res){
  		}
  	}
  	
- 	
- 	if (call_stack.length > 0){
- 		async.waterfall(
- 				call_stack,
- 				
- 				//if succeeds, result will hold information of the relationship.
- 				function(err, result){
- 					if (err){
- 						console.log(err);
- 						
- 						res.json({status: err, message: result});
- 					}else{
- 						res.json({status: 0});
- 					}
- 					res.end();
- 				}
- 		);
- 	}else{
- 		res.json({status: 0});
- 		res.end();
- 	}
+ 	call_stack[call_stack.length] = func_edit_gun;
  	
  	
-	var func_edit_gun = function(callback){
-		guns.edit(req, res, callback);
-	}
-	
-	var call_stack = [func_edit_gun];
- 	
- 	async.waterfall(
+	async.waterfall(
 			call_stack,
 			
 			//if succeeds, result will hold information of the relationship.
