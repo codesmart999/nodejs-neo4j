@@ -21,13 +21,12 @@ exports.all = function(req, res, cb){
 			var result = [];
 			for (var i=0; i<node.data.length; i++){
 				var item = {
-						customer: node.data[i][0],
-						customerID: node.data[i][1],
-						gunID: node.data[i][2],
-						deviceID: node.data[i][3],
-						deviceName: node.data[i][4],
-						minPower: node.data[i][5],
-						maxPower: node.data[i][6]
+						customerID: node.data[i][0],
+						gunID: node.data[i][1],
+						deviceID: node.data[i][2],
+						deviceName: node.data[i][3],
+						minPower: node.data[i][4],
+						maxPower: node.data[i][5]
 				};
 				result[result.length] = item;
 			}
