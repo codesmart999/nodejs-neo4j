@@ -92,7 +92,7 @@ router.post('/edit/:uuid', function(req, res){
  		del_index++;
  		guns.delRelationships(req, res, req.body.del_customer[del_index], callback);
  	}
- 	var func_edit_gun = function(callback){
+ 	var func_edit_gun = function(result, callback){
 		guns.edit(req, res, callback);
 	}
  	
