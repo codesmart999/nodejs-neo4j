@@ -168,7 +168,7 @@ exports.addRelationshipBetweenCustomer = function(req, res, gun, cb){
 }
 
 exports.delRelationships = function(req, res, cb){
-	var query = "MATCH (gun {guid: '" + req.params.uuid + "'})-[r]-() DELETE n, r";
+	var query = "MATCH (gun {guid: '" + req.params.uuid + "'})-[r]-() DELETE gun, r";
 	console.log("Trying to delete Customer_Gun relationships. Gun ID:", req.params.uuid);
 	db.cypherQuery(query, cb);
 }
