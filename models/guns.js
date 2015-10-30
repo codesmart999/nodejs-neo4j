@@ -53,6 +53,9 @@ exports.add = function(req, res, cb){
 	if (req.customer_index == req.body.customer.length - 1)
 		customer = req.body.customer;//only if admin itself
 	
+	if (req.customer_index == 0)
+		res.guid = _uuid;
+	
 	db.insertNode({
 		gunID: _uuid,
 		deviceID: req.body.deviceID,
@@ -69,6 +72,7 @@ exports.add = function(req, res, cb){
 		userWrite: req.body.userWrite,
 		userLocate: req.body.userLocate,
 		userReceive: req.body.userReceive,
+		guid: res.guid,
 		customerID: req.body.customer[req.customer_index],
 		customer: customer	//assigned customers
 	}, 'Gun', function(err, node){
@@ -164,7 +168,7 @@ exports.addRelationshipBetweenCustomer = function(req, res, gun, cb){
 }
 
 exports.delRelationships = function(req, res, cb){
-	var query = "MATCH (gun {gunID: '" + req.params.uuid + "'})-[r]-() DELETE r";
+	var query = "MATCH (gun {guid: '" + req.params.uuid + "'})-[r]-() DELETE n, r";
 	console.log("Trying to delete Customer_Gun relationships. Gun ID:", req.params.uuid);
 	db.cypherQuery(query, cb);
 }

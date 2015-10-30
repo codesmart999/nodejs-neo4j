@@ -80,6 +80,57 @@ router.post('/add', function(req, res){
 })
 
 router.post('/edit/:uuid', function(req, res){
+	req.customer_index = -1;
+	var func_add_gun = function(callback){
+		req.customer_index++;
+		guns.add(req, res, callback);
+ 	};
+ 	var func_add_relationship = function(gun, callback){
+ 		guns.addRelationshipBetweenCustomer(req, res, gun, callback);
+ 	}
+ 	var func_del_relationship = function(result, callback){
+ 		guns.delRelationships = function(req, res, callback);
+ 	}
+ 	
+ 	var call_stack = [];
+	
+ 	//assign gun to new customers
+ 	if (req.body.customer && req.body.customer.length > 0){
+ 		for (var i=0; i<req.body.customer.length; i++){
+ 			call_stack[i*2] = func_add_gun;
+ 			call_stack[i*2 + 1] = func_add_relationship;
+ 		}
+ 	}
+ 	
+ 	if (req.body.del_customer && req.body.del_customer.length > 0){
+ 		for (var i=0; i<req.body.customer.length; i++){
+ 			call_stack[call_stack.length] = func_del_relationship;
+ 		}
+ 	}
+ 	
+ 	
+ 	if (call_stack.length > 0){
+ 		async.waterfall(
+ 				call_stack,
+ 				
+ 				//if succeeds, result will hold information of the relationship.
+ 				function(err, result){
+ 					if (err){
+ 						console.log(err);
+ 						
+ 						res.json({status: err, message: result});
+ 					}else{
+ 						res.json({status: 0});
+ 					}
+ 					res.end();
+ 				}
+ 		);
+ 	}else{
+ 		res.json({status: 0});
+ 		res.end();
+ 	}
+ 	
+ 	
 	var func_edit_gun = function(callback){
 		guns.edit(req, res, callback);
 	}
