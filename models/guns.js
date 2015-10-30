@@ -119,6 +119,8 @@ exports.edit = function(req, res, cb){
 		data.userReceive = req.body.userReceive;
 	if (req.body.customerID)
 		data.customerID = req.body.customerID;
+	if (req.body.assigned_customer)
+		data.customer = req.body.assigned_customer;
 
 	console.log("Trying to edit Gun:" + req.body.gunID, data);
 	db.updateNodesWithLabelsAndProperties('Gun', {gunID:req.body.gunID}, data, cb);
