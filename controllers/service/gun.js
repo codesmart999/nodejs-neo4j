@@ -123,6 +123,7 @@ router.post('/edit/:uuid', function(req, res){
  			for (var i=1; i<req.body.customer.length; i++){
  	 			call_stack[call_stack.length] = func_del_relationship;
  	 		}
+ 			console.log("deellll", call_stack.length);
  		}
  	}
  	
