@@ -10,7 +10,7 @@ exports.all = function(req, res, cb){
 			+ " RETURN customer.fullName, gun.customerID, gun.gunID, gun.deviceID, gun.deviceName, gun.minPower, gun.maxPower";
 	}else{
 		console.log("Trying to get all Guns");
-		query = "MATCH (customer:User)-[r]-(gun:Gun)"
+		query = "MATCH (customer:User {userRole:'Administrator'})-[r]-(gun:Gun)"
 			+ " RETURN customer.fullName, gun.customerID, gun.gunID, gun.deviceID, gun.deviceName, gun.minPower, gun.maxPower";
 	}
 
@@ -50,6 +50,10 @@ exports.add = function(req, res, cb){
 	
 	var _uuid = uuid.v4();
 	
+	var customer = [];
+	if (req.customer_index == req.body.customer.length - 1)
+		customer = req.body.customer;//only if admin itself
+	
 	db.insertNode({
 		gunID: _uuid,
 		deviceID: req.body.deviceID,
@@ -66,7 +70,8 @@ exports.add = function(req, res, cb){
 		userWrite: req.body.userWrite,
 		userLocate: req.body.userLocate,
 		userReceive: req.body.userReceive,
-		customerID: req.body.customer[req.customer_index]
+		customerID: req.body.customer[req.customer_index],
+		customer: customer	//assigned customers
 	}, 'Gun', function(err, node){
 		if (err)
 			return cb("401", node);
