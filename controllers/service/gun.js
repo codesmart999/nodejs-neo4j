@@ -88,10 +88,17 @@ router.post('/edit/:uuid', function(req, res){
  	var func_add_relationship = function(gun, callback){
  		guns.addRelationshipBetweenCustomer(req, res, gun, callback);
  	}
+ 	var func_del_relationship1 = function(callback){
+ 		del_index++;
+ 		guns.delRelationships(req, res, req.body.del_customer[del_index], callback);
+ 	}
  	var func_del_relationship = function(result, callback){
  		del_index++;
  		guns.delRelationships(req, res, req.body.del_customer[del_index], callback);
  	}
+ 	var func_edit_gun1 = function(callback){
+		guns.edit(req, res, callback);
+	}
  	var func_edit_gun = function(result, callback){
 		guns.edit(req, res, callback);
 	}
@@ -107,13 +114,22 @@ router.post('/edit/:uuid', function(req, res){
  	}
  	
  	if (req.body.del_customer && req.body.del_customer.length > 0){
- 		for (var i=0; i<req.body.customer.length; i++){
- 			call_stack[call_stack.length] = func_del_relationship;
+ 		if (call_stack.length > 0){
+ 			for (var i=0; i<req.body.customer.length; i++){
+ 	 			call_stack[call_stack.length] = func_del_relationship;
+ 	 		}
+ 		}else{
+ 			call_stack[call_stack.length] = func_del_relationship1;
+ 			for (var i=1; i<req.body.customer.length; i++){
+ 	 			call_stack[call_stack.length] = func_del_relationship;
+ 	 		}
  		}
  	}
  	
- 	call_stack[call_stack.length] = func_edit_gun;
- 	
+ 	if (call_stack.length > 0)
+ 		call_stack[call_stack.length] = func_edit_gun;
+ 	else
+ 		call_stack[0] = func_edit_gun1;
  	
 	async.waterfall(
 			call_stack,
