@@ -115,15 +115,14 @@ router.post('/edit/:uuid', function(req, res){
  	
  	if (req.body.del_customer && req.body.del_customer.length > 0){
  		if (call_stack.length > 0){
- 			for (var i=0; i<req.body.customer.length; i++){
+ 			for (var i=0; i<req.body.del_customer.length; i++){
  	 			call_stack[call_stack.length] = func_del_relationship;
  	 		}
  		}else{
  			call_stack[call_stack.length] = func_del_relationship1;
- 			for (var i=1; i<req.body.customer.length; i++){
+ 			for (var i=1; i<req.body.del_customer.length; i++){
  	 			call_stack[call_stack.length] = func_del_relationship;
  	 		}
- 			console.log("deellll", call_stack.length);
  		}
  	}
  	
