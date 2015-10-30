@@ -89,7 +89,7 @@ router.post('/edit/:uuid', function(req, res){
  		guns.addRelationshipBetweenCustomer(req, res, gun, callback);
  	}
  	var func_del_relationship = function(result, callback){
- 		guns.delRelationships = function(req, res, callback);
+ 		guns.delRelationships(req, res, callback);
  	}
  	
  	var call_stack = [];
