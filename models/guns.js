@@ -7,11 +7,11 @@ exports.all = function(req, res, cb){
 	if (req.params && req.params.customerID){
 		console.log("Trying to get Guns of Customer:" + req.params.customerID);
 		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r]-(gun:Gun)"
-			+ " RETURN customer.fullName, gun.customerID, gun.gunID, gun.deviceID, gun.deviceName, gun.minPower, gun.maxPower";
+			+ " RETURN gun.customerID, gun.gunID, gun.deviceID, gun.deviceName, gun.minPower, gun.maxPower";
 	}else{
 		console.log("Trying to get all Guns");
 		query = "MATCH (customer:User {userRole:'Administrator'})-[r]-(gun:Gun)"
-			+ " RETURN customer.fullName, gun.customerID, gun.gunID, gun.deviceID, gun.deviceName, gun.minPower, gun.maxPower";
+			+ " RETURN gun.customerID, gun.gunID, gun.deviceID, gun.deviceName, gun.minPower, gun.maxPower";
 	}
 
 	db.cypherQuery(query, function(err, node){
