@@ -7,11 +7,11 @@ exports.all = function(req, res, cb){
 	if (req.params && req.params.customerID){
 		console.log("Trying to get Guns of Customer:" + req.params.customerID);
 		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r]-(gun:Gun)"
-			+ " RETURN gun.customerID, gun.gunID, gun.deviceID, gun.deviceName, gun.minPower, gun.maxPower";
+			+ " RETURN gun.customerID, gun.gunID, gun.deviceID, gun.deviceName, gun.minPower, gun.maxPower, gun.guid";
 	}else{
 		console.log("Trying to get all Guns");
 		query = "MATCH (customer:User {userRole:'Administrator'})-[r]-(gun:Gun)"
-			+ " RETURN gun.customerID, gun.gunID, gun.deviceID, gun.deviceName, gun.minPower, gun.maxPower";
+			+ " RETURN gun.customerID, gun.gunID, gun.deviceID, gun.deviceName, gun.minPower, gun.maxPower, gun.guid";
 	}
 
 	db.cypherQuery(query, function(err, node){
@@ -26,7 +26,8 @@ exports.all = function(req, res, cb){
 						deviceID: node.data[i][2],
 						deviceName: node.data[i][3],
 						minPower: node.data[i][4],
-						maxPower: node.data[i][5]
+						maxPower: node.data[i][5],
+						guid: node.data[i][6]
 				};
 				result[result.length] = item;
 			}
