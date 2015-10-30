@@ -120,8 +120,8 @@ exports.edit = function(req, res, cb){
 	if (req.body.customerID)
 		data.customerID = req.body.customerID;
 
-	console.log("Trying to edit Gun:" + req.params.uuid, data);
-	db.updateNodesWithLabelsAndProperties('Gun', {gunID:req.params.uuid}, data, cb);
+	console.log("Trying to edit Gun:" + req.body.gunID, data);
+	db.updateNodesWithLabelsAndProperties('Gun', {gunID:req.body.gunID}, data, cb);
 }
 
 exports.del = function(req, res, cb){
