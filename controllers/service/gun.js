@@ -53,6 +53,7 @@ router.post('/add', function(req, res){
  	}
 	
  	if (req.body.customer && req.body.customer.length > 0){
+ 		var call_stack = [];
  		for (var i=0; i<req.body.customer.length; i++){
  			call_stack[i*2] = func_add_gun;
  			call_stack[i*2 + 1] = func_add_relationship;
