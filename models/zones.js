@@ -31,7 +31,7 @@ exports.all = function(req, res, cb){
 						zoneID: node.data[i][1]
 				};
 				if (node.data[i][2])
-				  item.company = node.data[i][2];
+				  item.customer = node.data[i][2];
 				if (node.data[i][3])
           item.site = node.data[i][3];
 				if (node.data[i][4])
