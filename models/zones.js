@@ -60,6 +60,8 @@ exports.add = function(req, res, cb){
 	db.insertNode({
 		zoneID: _uuid,
 		name: req.body.name,
+		customerID: req.body.customerID,
+		regionID: req.body.regionID,
 		siteID: req.body.siteID,
 		zonetypeID: req.body.zonetypeID,
 	}, 'Zone', function(err, node){
@@ -78,8 +80,12 @@ exports.edit = function(req, res, cb){
 	
 	if (req.body.name)
 		data.name = req.body.name;
+	if (req.body.customerID)
+		data.customerID = req.body.customerID;
+	if (req.body.regionID)
+    data.regionID = req.body.regionID;
 	if (req.body.siteID)
-		data.siteID = req.body.siteID;
+    data.siteID = req.body.siteID;
 	if (req.body.zonetypeID)
 		data.zonetypeID = req.body.zonetypeID;
 
