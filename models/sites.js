@@ -59,7 +59,8 @@ exports.add = function(req, res, cb){
 	db.insertNode({
 		siteID: _uuid,
 		name: req.body.name,
-		regionID: req.body.regionID,
+		code: req.body.code,
+    regionID: req.body.regionID,
 		sitetypeID: req.body.sitetypeID,
 		manager: req.body.manager,
 		email: req.body.email,
@@ -86,7 +87,9 @@ exports.edit = function(req, res, cb){
 	
 	if (req.body.name)
 		data.name = req.body.name;
-	if (req.body.manager)
+	if (req.body.code)
+    data.code = req.body.code;
+  if (req.body.manager)
 		data.manager = req.body.manager;
 	if (req.body.regionID)
 		data.regionID = req.body.regionID;
