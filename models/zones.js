@@ -6,7 +6,7 @@ exports.all = function(req, res, cb){
 	var query = "";
 	if (req.params && req.params.customerID){
 		console.log("Trying to get Zones of Customer:" + req.params.customerID);
-		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r1]-(region:Region)-[r2]-(site:Site)-[r3]-(zone:Zone), (zonetype:ZoneType)-[r4]-(zone:Zone)"
+		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r1]-(region:Region)-[r2]-(site:Site)-[r3]-(zone:Zone)-[r4]-(zonetype:ZoneType)"
 			+ " RETURN zone.name, zone.zoneID, customer.company, site.name, zonetype.name";
 	}else if (req.params && req.params.userID){
 		console.log("Trying to get Zones of User:" + req.params.userID);
@@ -16,7 +16,7 @@ exports.all = function(req, res, cb){
 		console.log("Trying to get all Zones");
 		//query = "MATCH (zone:Zone)"
 		//  + " RETURN zone.name, zone.zoneID";
-		query = "MATCH (customer:User)-[r1]-(region:Region)-[r2]-(site:Site)-[r3]-(zone:Zone), (zonetype:ZoneType)-[r4]-(zone:Zone)"
+		query = "MATCH (customer:User)-[r1]-(region:Region)-[r2]-(site:Site)-[r3]-(zone:Zone)-[r4]-(zonetype:Zonetype)"
       + " RETURN zone.name, zone.zoneID, customer.company, site.name, zonetype.name";
 	}
 
