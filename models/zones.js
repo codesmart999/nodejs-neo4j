@@ -7,7 +7,7 @@ exports.all = function(req, res, cb){
 	if (req.params && req.params.customerID){
 		console.log("Trying to get Zones of Customer:" + req.params.customerID);
 		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r1]-(region:Region)-[r2]-(site:Site)-[r3]-(zone:Zone)"
-			+ " RETURN customer.company, zone.name, zone.zoneID";
+			+ " RETURN zone.name, zone.zoneID, customer.company";
 	}else if (req.params && req.params.userID){
 		console.log("Trying to get Zones of User:" + req.params.userID);
 		query = "MATCH (user:User {userID:'" + req.params.userID + "'})-[r]-(zone:Zone)"
@@ -17,7 +17,7 @@ exports.all = function(req, res, cb){
 		//query = "MATCH (zone:Zone)"
 		//  + " RETURN zone.name, zone.zoneID";
 		query = "MATCH (customer:User)-[r1]-(region:Region)-[r2]-(site:Site)-[r3]-(zone:Zone)"
-      + " RETURN customer.company, zone.name, zone.zoneID";
+      + " RETURN zone.name, zone.zoneID, customer.company";
 	}
 
 	db.cypherQuery(query, function(err, node){
@@ -30,6 +30,8 @@ exports.all = function(req, res, cb){
 						name: node.data[i][0],
 						zoneID: node.data[i][1]
 				};
+				if (node.data[i][2])
+				  item.company = node.data[i][2];
 				result[result.length] = item;
 			}
 			return cb(err, result);
