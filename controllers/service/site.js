@@ -27,6 +27,18 @@ router.get('/customer/:customerID', function(req, res){
 	});
 })
 
+router.get('/region/:regionID', function(req, res){
+  sites.all(req, res, function(err, node){
+    if (err){
+      console.log(err);
+      res.json({status: 401});
+    }else{
+      console.log(node);
+      res.json(node);
+    }
+  });
+})
+
 router.get('/user/:userID', function(req, res){
 	sites.all(req, res, function(err, node){
 		if (err){

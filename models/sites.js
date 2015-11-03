@@ -12,7 +12,11 @@ exports.all = function(req, res, cb){
 		console.log("Trying to get Sites of User:" + req.params.userID);
 		query = "MATCH (user:User {userID:'" + req.params.userID + "'})-[r]-(site:Site)"
 			+ " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax, site.siteID";
-	}else{
+	}else if (req.params && req.params.regionID){
+    console.log("Trying to get Sites of Region:" + req.params.regionID);
+    query = "MATCH (region:Region {regionID:'" + req.params.regionID + "'})-[r]-(site:Site)"
+      + " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax, site.siteID";
+  }else{
 		console.log("Trying to get all Sites");
 		query = "MATCH (site:Site)"
 		  + " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax, site.siteID";
