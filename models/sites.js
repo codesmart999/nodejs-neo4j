@@ -15,7 +15,7 @@ exports.all = function(req, res, cb){
 	}else{
 		console.log("Trying to get all Sites");
 		query = "MATCH (site:Site)"
-		+ " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax, site.siteID";
+		  + " RETURN site.name, site.manager, site.email, site.phone, site.zipcode, site.state, site.country, site.fax, site.siteID";
 	}
 
 	db.cypherQuery(query, function(err, node){
@@ -60,6 +60,7 @@ exports.add = function(req, res, cb){
 		siteID: _uuid,
 		name: req.body.name,
 		code: req.body.code,
+		customerID: req.body.customerID,
     regionID: req.body.regionID,
 		sitetypeID: req.body.sitetypeID,
 		manager: req.body.manager,
@@ -91,6 +92,8 @@ exports.edit = function(req, res, cb){
     data.code = req.body.code;
   if (req.body.manager)
 		data.manager = req.body.manager;
+  if (req.body.customerID)
+    data.customerID = req.body.customerID;
 	if (req.body.regionID)
 		data.regionID = req.body.regionID;
 	if (req.body.sitetypeID)
