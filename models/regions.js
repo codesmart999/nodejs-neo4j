@@ -10,11 +10,11 @@ exports.all = function(req, res, cb){
 	var query = "";
 	if (req.params && req.params.customerID){
 		console.log("Trying to get Regions of Customer:" + req.params.customerID);
-		query = "MATCH (customer:User {userID:'" + req.params.customerID + "'})-[r]-(region:Region)"
+		query = "MATCH (customer:User {userID:'" + req.params.customerID + "', valid:true})-[r]-(region:Region)"
 			+ " RETURN customer.fullName, region.regionID, region.manager, region.name, region.customerID";
 	}else{
 		console.log("Trying to get all Regions");
-		query = "MATCH (customer:User)-[r]-(region:Region)"
+		query = "MATCH (customer:User {valid:true})-[r]-(region:Region)"
 		+ " RETURN customer.fullName, region.regionID, region.manager, region.name, region.customerID";
 	}
 
