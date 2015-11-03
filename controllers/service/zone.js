@@ -57,11 +57,15 @@ router.post('/add', function(req, res){
 	var func_add_zone = function(callback){
 		zones.add(req, res, callback);
  	};
- 	var func_add_relationship = function(zone, callback){
+ 	var func_add_relationship1 = function(zone, callback){
+ 	  res.zone = zone;
  		zones.addRelationshipBetweenSite(req, res, zone, callback);
  	}
+ 	var func_add_relationship2 = function(result, callback){
+    zones.addRelationshipBetweenZonetype(req, res, res.zone, callback);
+  }
 	
- 	var call_stack = [func_add_zone, func_add_relationship];
+ 	var call_stack = [func_add_zone, func_add_relationship1, func_add_relationship2];
 	
  	async.waterfall(
 			call_stack,
@@ -92,11 +96,14 @@ router.post('/edit/:uuid', function(req, res){
 			callback("404", "Not Found");
 		}
 	}
-	var func_add_relationship = function(result, callback){
+	var func_add_relationship1 = function(result, callback){
  		zones.addRelationshipBetweenSite(req, res, res.zone, callback);
  	}
+	var func_add_relationship2 = function(result, callback){
+    zones.addRelationshipBetweenZonetype(req, res, res.zone, callback);
+  }
 	
-	var call_stack = [func_edit_zone, func_del_relationships, func_add_relationship];
+	var call_stack = [func_edit_zone, func_del_relationships, func_add_relationship1, func_add_relationship2];
  	
  	async.waterfall(
 			call_stack,

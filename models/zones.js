@@ -124,6 +124,17 @@ exports.addRelationshipBetweenSite = function(req, res, zone, cb){
 	db.cypherQuery(query, cb);
 }
 
+exports.addRelationshipBetweenZonetype = function(req, res, zone, cb){
+  console.log("Trying to create relationships FROM Zonetype:", req.body.zonetypeID);
+  console.log("Trying to create relationships TO Zone:", zone.zoneID);
+
+  var query = "MATCH (zonetype:Zonetype {zonetypeID:'" + req.body.zonetypeID + "'}),"
+    + "(zone:Zone {zoneID:'" + zone.zoneID + "'})"
+    + " CREATE (zonetype)-[r:Zonetype_Zone]->(zone) RETURN r";
+
+  db.cypherQuery(query, cb);
+}
+
 exports.delRelationships = function(req, res, cb){
 	var query = "MATCH (zone {zoneID: '" + req.params.uuid + "'})-[r]-() DELETE r";
 	console.log("Trying to delete Zone relationships. Zone ID:", req.params.uuid);
