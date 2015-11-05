@@ -94,6 +94,9 @@ router.post('/add', function(req, res){
  	var func_add_relationship = function(user, module_index, callback){
  		users.addRelationship(req, res, user, module_index, callback);
  	}
+ 	var func_add_relationship1= = function(user, index, callback){
+ 	  users.addRelationshipBetweenCustomer(req, res, user, callback);
+ 	}
 	
  	var call_stack = [func_add_user];
  	var module_length = 0;
@@ -107,6 +110,8 @@ router.post('/add', function(req, res){
  		for (var i=0; i<site_length; i++)
  			call_stack[i + 1 + module_length] = func_add_relationship;
  	}
+ 	
+ 	call_stack[call_stack.length] = func_add_relationship1;
 	
  	async.waterfall(
 			call_stack,
@@ -155,7 +160,9 @@ router.post('/edit/:uuid', function(req, res){
  			call_stack[i + 2 + module_length] = func_add_relationship;
  	}
  	
- 	console.log(call_stack.length);
+ 	call_stack[call_stack.length] = func_add_relationship1;
+ 	
+ 	//console.log(call_stack.length);
  	
  	async.waterfall(
 			call_stack,

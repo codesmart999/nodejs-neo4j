@@ -193,6 +193,17 @@ exports.addRelationship = function(req, res, user, index, cb){
 	}
 }
 
+exports.addRelationshipBetweenCustomer = function(req, res, user, cb){
+  console.log("Trying to create relationships FROM User:", user);
+  console.log("Trying to create relationships TO Customer:", req.body.customerID);
+  
+  var query = "MATCH (customer:User {userID:'" + req.body.customerID + "'}),"
+    + "(user:User {userID:'" + user.userID + "'})"
+    + " CREATE (customer)-[r:Customer_User]->(user) RETURN r";
+
+  db.cypherQuery(query, cb);
+}
+
 exports.getRelationships = function(req, res, user, cb){
 	console.log("Trying to read module relationships FROM User:", user);
 	
